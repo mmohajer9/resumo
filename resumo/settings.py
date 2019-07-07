@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'weblog.apps.WeblogConfig'
+    'weblog.apps.WeblogConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'resumo.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'resumo',
+        'NAME': 'resumo_project',
         'USER': 'postgres',
         'PASSWORD': 'mohammad98',
         'HOST': '127.0.0.1',
