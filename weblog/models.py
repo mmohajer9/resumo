@@ -1,4 +1,3 @@
-from django.db.models import Value
 from django.db import models
 from django.db.models.functions import Concat
 # Create your models here.
