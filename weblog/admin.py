@@ -9,6 +9,8 @@ admin.site.register(Skill)
 
 admin.site.register(BlogPost)
 
-admin.site.register(Like)
+admin.site.register(BlogPostLike)
+
+admin.site.register(CommentLike)
 
 admin.site.register(Comment)

@@ -29,6 +29,7 @@ class UserDetail(models.Model):
     primary_skill = models.ForeignKey(Skill, default = 'Dumb' ,related_name ='user_who_have_this_as_primary' ,on_delete=models.CASCADE)
     secondary_skill = models.ForeignKey(Skill, default = 'Dumb' ,related_name = 'user_who_have_this_as_secondary' ,on_delete=models.CASCADE)
     admin = models.BooleanField(default = 0)
+    signup_date = models.DateTimeField(auto_now=True)
 
 
     def __str__(self):
@@ -45,6 +46,7 @@ class BlogPost(models.Model):
     title = models.CharField(max_length = 100 , null = False)
     body = models.TextField(null = False)
     username = models.ForeignKey(UserDetail, on_delete=models.CASCADE)
+    pub_date = models.DateTimeField(auto_now=True, auto_now_add=False)
     def __str__(self):
         return self.title
 
@@ -65,12 +67,10 @@ class Comment(models.Model):
 
 
 
-class Like(models.Model):
+class BlogPostLike(models.Model):
     
     #id = pk
     likes = models.IntegerField(default = 0)
-    username = models.ForeignKey(UserDetail, on_delete=models.CASCADE)
-    comment_id = models.ForeignKey(Comment, on_delete=models.CASCADE)
     blogPost_id = models.ForeignKey(BlogPost , on_delete=models.CASCADE)
     def __str__(self):
         return self.likes
@@ -78,7 +78,16 @@ class Like(models.Model):
     def __unicode__(self):
         return 
 
+class CommentLike(models.Model):
+    
+    #id = pk
+    likes = models.IntegerField(default = 0)
+    comment_id = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.likes
 
+    def __unicode__(self):
+        return 
 
 
 
