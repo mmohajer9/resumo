@@ -30,7 +30,7 @@ class UserDetail(models.Model):
     primary_skill_score = models.IntegerField()
     secondary_skill = models.ForeignKey(Skill,related_name = 'secondary_skill' ,on_delete=models.CASCADE)
     secondary_skill_score = models.IntegerField()
-
+    admin = models.BooleanField(default = 0)
 
 
     def __str__(self):
