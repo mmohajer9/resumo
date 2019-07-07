@@ -1,5 +1,6 @@
+from django.db.models import Value
 from django.db import models
-
+from django.db.models.functions import Concat
 # Create your models here.
 class Skill(models.Model):
     
@@ -45,10 +46,10 @@ class BlogPost(models.Model):
     #id = pk
     title = models.CharField(max_length = 100 , null = False)
     body = models.TextField(null = False)
-    username = models.ForeignKey(UserDetail, on_delete=models.CASCADE)
+    username = models.ForeignKey(UserDetail,on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now=True, auto_now_add=False)
     def __str__(self):
-        return self.title
+        return str(self.pk) + ' - ' + self.title
 
     def __unicode__(self):
         return 
@@ -57,8 +58,11 @@ class BlogPost(models.Model):
 class Comment(models.Model):
     
     #id = pk
+    username = models.ForeignKey(UserDetail,default = 'Unknown',on_delete=models.CASCADE)
     comment_text = models.CharField(max_length=250)
     blogPost_id = models.ForeignKey(BlogPost, on_delete=models.CASCADE)
+    pub_date = models.DateTimeField(auto_now=True, auto_now_add=False)
+
     def __str__(self):
         return self.comment_text
 
@@ -70,10 +74,12 @@ class Comment(models.Model):
 class BlogPostLike(models.Model):
     
     #id = pk
-    likes = models.IntegerField(default = 0)
+    likes = models.BooleanField(default = 0)
     blogPost_id = models.ForeignKey(BlogPost , on_delete=models.CASCADE)
+    username = models.ForeignKey(UserDetail,default =  'Unknown' ,on_delete=models.CASCADE)
+
     def __str__(self):
-        return self.likes
+        return str(self.username) + ' Likes --> ' + str(self.blogPost_id)
 
     def __unicode__(self):
         return 
@@ -81,11 +87,12 @@ class BlogPostLike(models.Model):
 class CommentLike(models.Model):
     
     #id = pk
-    likes = models.IntegerField(default = 0)
+    likes = models.BooleanField(default = 0)
     comment_id = models.ForeignKey(Comment, on_delete=models.CASCADE)
-    def __str__(self):
-        return self.likes
+    username = models.ForeignKey(UserDetail,default = 'Unknown',on_delete=models.CASCADE)
 
+    def __str__(self):
+        return str(self.username) + ' Likes --> ' + str(self.comment_id)
     def __unicode__(self):
         return 
 
