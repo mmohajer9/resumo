@@ -6,7 +6,7 @@ class Skill(models.Model):
     skillName = models.CharField(max_length=100 , primary_key = True)
 
     def __str__(self):
-        return skillName
+        return self.skillName
 
     def __unicode__(self):
         return 
@@ -26,15 +26,13 @@ class UserDetail(models.Model):
     Telegram_link = models.URLField(null = True , max_length=200)
     Telegram_ID = models.CharField(null = True , max_length=200)
     aboutme = models.TextField(default = 'No Informations!')
-    primary_skill = models.ForeignKey(Skill,related_name ='primary_skill' ,on_delete=models.CASCADE)
-    primary_skill_score = models.IntegerField()
-    secondary_skill = models.ForeignKey(Skill,related_name = 'secondary_skill' ,on_delete=models.CASCADE)
-    secondary_skill_score = models.IntegerField()
+    primary_skill = models.ForeignKey(Skill, default = 'Dumb' ,related_name ='user_who_have_this_as_primary' ,on_delete=models.CASCADE)
+    secondary_skill = models.ForeignKey(Skill, default = 'Dumb' ,related_name = 'user_who_have_this_as_secondary' ,on_delete=models.CASCADE)
     admin = models.BooleanField(default = 0)
 
 
     def __str__(self):
-        return username , password , firstname , lastname
+        return self.username
 
     def __unicode__(self):
         return 
@@ -48,7 +46,7 @@ class BlogPost(models.Model):
     body = models.TextField(null = False)
     username = models.ForeignKey(UserDetail, on_delete=models.CASCADE)
     def __str__(self):
-        return username , title , body 
+        return self.title
 
     def __unicode__(self):
         return 
@@ -60,7 +58,7 @@ class Comment(models.Model):
     comment_text = models.CharField(max_length=250)
     blogPost_id = models.ForeignKey(BlogPost, on_delete=models.CASCADE)
     def __str__(self):
-        return comment_text
+        return self.comment_text
 
     def __unicode__(self):
         return 
@@ -75,7 +73,7 @@ class Like(models.Model):
     comment_id = models.ForeignKey(Comment, on_delete=models.CASCADE)
     blogPost_id = models.ForeignKey(BlogPost , on_delete=models.CASCADE)
     def __str__(self):
-        return likes
+        return self.likes
 
     def __unicode__(self):
         return 
