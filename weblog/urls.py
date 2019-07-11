@@ -5,8 +5,7 @@ app_name = 'weblog'
 
 urlpatterns = [
     path('' , views.home , name = 'home'),
-    path('authentication/' , views.authentication , name = 'authentication'),
-    path('login/' , views.login , name = 'login'),
-    path('signup/' , views.signup , name = 'signup'),
+    path('register/' , views.register_form , name = 'register'),
+    path('signin/' , views.signin_form , name = 'signin')
     
 ]   

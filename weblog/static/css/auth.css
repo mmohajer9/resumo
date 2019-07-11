@@ -1,0 +1,14 @@
+@font-face {
+    font-family: "Lalezar";
+    src: url("../public/fonts/Lalezar/Lalezar-Regular.ttf");
+    src: 
+    url("../public/fonts/Lalezar/lalezar-regular-webfont.woff") format("woff"),
+    /* url("css/fonts/Harabara.otf") format("opentype"),
+    url("css/fonts/Harabara.svg#filename") format("svg"); */
+    }
+
+h1
+{
+    font-family: "Lalezar";
+}
+

@@ -1,0 +1,42 @@
+{% load static %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <script src="{% static 'public/jquery-3.4.1.js'%}" crossorigin="anonymous"></script>
+        <script src="{% static 'public/popper.min.js'%}" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{% static 'css/auth.css'%}" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'public/bootstrap/css/bootstrap.css'%}" crossorigin="anonymous">
+        <script src="{% static 'public/bootstrap/js/bootstrap.js'%}" crossorigin="anonymous"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>سامانه ورود به سیستم</title>
+    </head>
+    <body>
+        <h1 class="text-center">:  لطفا اطلاعات خود را وارد کنید</h1>
+        <hr>
+        <p>
+            <div class="container">
+
+                <div class="row">
+                    <div class="col">
+                            <form method="POST">
+                                    <table>
+                                        {{signup_form.as_table}}
+                                        {% csrf_token %}
+                                    </table>
+                                <input type="submit" class="btn btn-primary" value="ثبت نام">
+                            </form>
+                        </div>
+                        <div class="col">
+                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus facere voluptates nihil fugit autem excepturi illum reprehenderit quae odit, laborum, blanditiis iure sapiente aspernatur laudantium quia qui reiciendis hic itaque.</p>
+                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus facere voluptates nihil fugit autem excepturi illum reprehenderit quae odit, laborum, blanditiis iure sapiente aspernatur laudantium quia qui reiciendis hic itaque.</p>
+                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus facere voluptates nihil fugit autem excepturi illum reprehenderit quae odit, laborum, blanditiis iure sapiente aspernatur laudantium quia qui reiciendis hic itaque.</p>
+                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus facere voluptates nihil fugit autem excepturi illum reprehenderit quae odit, laborum, blanditiis iure sapiente aspernatur laudantium quia qui reiciendis hic itaque.</p>
+        
+                    </div>
+                </div>
+            </div>
+        </p>
+    </body>
+    </html>
