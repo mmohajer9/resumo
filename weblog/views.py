@@ -42,3 +42,5 @@ def register_form(reuqest):
 def signin_form(request):
     return HttpResponse('signin_form')
 
+def aboutus(request):
+    return HttpResponse('aboutus')
