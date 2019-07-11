@@ -18,7 +18,7 @@ class UserDetail(models.Model):
     password = models.CharField(max_length=100)
     firstname = models.CharField(max_length = 100)
     lastname = models.CharField(max_length = 100)
-    email = models.EmailField(max_length=254)
+    email = models.EmailField(max_length=254 , unique = True)
     github_link = models.URLField(null = True , default= 'http://localhost' , max_length=200)
     facebook_link = models.URLField(null = True, default= 'http://localhost' , max_length=200)
     Linkedin_link = models.URLField(null = True, default= 'http://localhost' , max_length=200)
