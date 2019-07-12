@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect , HttpResponse , HttpRequest
+from django.http import HttpResponseRedirect , HttpResponse , HttpRequest , Http404
 from django.shortcuts import get_object_or_404, render 
 from django.urls import reverse #reverse function :: reverse('appname:url_name' , args=( , , ) == vorodi haye url)
 from django.views import generic #baraye estefade az generic view ha
@@ -19,29 +19,67 @@ def home(request):
 def login(request):
     pass
 
-def signup(request):
-    pass
 
-def additional_info_register_form(request):
-    pass
+def additional_info_form_view(request , username):
 
-def register_form(reuqest):
+    #if this form didn't created by redirect from register form this should be Bad Access
+    #inkaro krdm ke harkasi ke in linko balad bood nayad darja dastresi peida kone
+    #etelaat melato avaz kone!
+
+    #in karbord session dar haqiqat yek anti refreshe
+    #mese safeye pardakht online ke nabayad refresh koni!
+
+    if request.method == 'GET':
+        if not request.session.get('form-submitted' , True):
+            raise Http404("Bad Access Don't Refresh The Page or Try To Reach This Without Registering !") 
+    additional_form = additional_info_Form()
+    error_msg = ''
+    request.session['form-submitted'] = False
+    if request.method == 'POST':
+        additional_form = additional_info_Form(request.POST)
+        if additional_form.is_valid():
+            print('ADDITIONAL INFO VALIDATION SUCCESS!')
+            print(additional_form.cleaned_data)
+            obj = UserDetail.objects.get(pk = username)
+            obj.github_link = additional_form.cleaned_data['github_link']
+            obj.facebook_link = additional_form.cleaned_data['facebook_link']
+            obj.Linkedin_link = additional_form.cleaned_data['Linkedin_link']
+            obj.Instagram_link = additional_form.cleaned_data['Instagram_link']
+            obj.Telegram_link = additional_form.cleaned_data['Telegram_link']
+            obj.Telegram_ID = additional_form.cleaned_data['Telegram_ID']
+            obj.save()
+            return render(request , 'weblog/Success.html' , {'username' : username})
+
+        else:
+            print('ADDITIONAL INFO VALIDATION FAILED')
+            print(additional_form.cleaned_data)
+            error_msg = 'Please Fix The Issues !'
+
+    return render(request , 'weblog/additional_info_register.html' , {'username' : username , 'additional_form' : additional_form , 'error_msg' : error_msg})
+
+
+def register_form_view(request):
     signup_form = signupForm()
-    if reuqest.method == 'POST':
-        # print(reuqest.POST)
-        signup_form = signupForm(reuqest.POST)
+    error_msg = ''
+    if request.method == 'POST':
+        # print(request.POST)
+        signup_form = signupForm(request.POST)
         if signup_form.is_valid():
-            #DO SOMETHING
-            print('VALIDATION SUCCESS!')
+            print('REGISTER VALIDATION SUCCESS!')
             print(signup_form.cleaned_data)
             signup_form.save(commit = True)
+
+            # addin some session for redirect restriction :: 
+            request.session['form-submitted'] = True
+            return HttpResponseRedirect(reverse('weblog:additional_info', args=(signup_form.cleaned_data['username'],)))
         else:
-            print('VALIDATION FAILED')    
-            #return render jadid baraye additional info ba ye form ezafe!
-    return render(reuqest , 'weblog/register.html' , {'signup_form' : signup_form})
+            print('REGISTER VALIDATION FAILED')
+            print(signup_form.cleaned_data)
+            error_msg = 'Please Fix The Issues !'
+    return render(request , 'weblog/register.html' , {'signup_form' : signup_form , 'error_msg' : error_msg})
 
 def signin_form(request):
-    return HttpResponse('signin_form')
+    return HttpResponseRedirect(reverse('weblog:home', args=()))
 
 def aboutus(request):
-    return HttpResponse('aboutus')
+    return HttpResponseRedirect(reverse('weblog:home', args=()))

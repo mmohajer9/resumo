@@ -1,1 +1,66 @@
-additional_info_register.html
+<!DOCTYPE html>
+{% extends "weblog/base.html" %}
+{% load static %}
+    <head>
+        <link rel="stylesheet" href="{% static 'css/auth.css'%}" crossorigin="anonymous">
+        <title>{% block title %}ادامه - اطلاعات اضافه{% endblock %}</title>
+    </head>
+
+    {% block body_block %}
+    <style>
+        .btn-submit
+        {
+            width: 50%;
+        }
+    </style>
+
+    <div class="container wrapper row">
+        <div class="col-6">
+            <p class="badge-warning text-center" style="font-family: Lalezar">نام کاربری شما : {{username}}</p>
+            <p class="alert-secondary text-center" style="font-family: Lalezar"> :  لطفا در صورتی که تمایل دارید اطلاعات زیر را پر کنید</p>
+            <p class="alert-primary text-center" style="font-family: Lalezar">لطفا برای حفظ اطلاعاتتان به هیچ عنوان صفحه را رفرش نکنید</p>
+
+            <form method="POST">
+                <table>
+                    {{additional_form.as_table}}
+                </table>
+    
+                {% csrf_token %}
+                <br>
+                
+                <input type="submit" class="btn btn-success btn-submit" value="تکمیل">
+            </form>
+        </div>
+        <div class="col" dir="rtl" style="font-family: 'Lalezar';">
+            <p>
+                قوانین عضویت در وبسایت رزومو :
+
+            </p>
+            <p>
+                ۱ - تمامی حق انتشار و ارجاع وبسایت متعلق به رزومو میباشد                            
+            </p>
+            <p>
+                ۲ - استفاده از هرگونه نام کاربری مستهجن و زشت ممنوع میباشد
+            </p>
+            <p>
+                ۳ - ارسال پست های شامل موارد غیر قانونی ممنوع میباشد                            
+            </p>
+            <p>
+                ۴ - از گذاشتن کامنت های شامل فحش و حرف های رکیک و ناسزا جدا خودداری کنید                           
+            </p>
+            <p>
+                ۵ - در صورت رعایت نکردن هر کدام از موارد بالا اکانت شما مسدود شده و در نهایت ای پی شما مسدود خواهد شد
+            </p>
+        </div>
+    </div>
+
+
+
+
+    {% if error_msg %}
+        <p>{{error_msg}}</p>
+    {% else %}
+    {% endif %}
+    
+
+    {% endblock body_block %}

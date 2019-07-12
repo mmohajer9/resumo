@@ -5,7 +5,7 @@
     
     <head>
         <link rel="stylesheet" href="{% static 'css/auth.css'%}" crossorigin="anonymous">
-        <title>{% block title %}سامانه ورود به سیستم{% endblock %}</title>
+        <title>{% block title %}ثبت نام{% endblock %}</title>
     </head>
 
 
@@ -26,17 +26,36 @@
                                     <input type="submit" class="btn btn-primary" value="ثبت نام">
                                 </form>
                         </div>
-                        <div class="col">
+                        <div class="col" dir="rtl" style="font-family: 'Lalezar';">
                             <p>
-                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus est voluptate cum beatae adipisci amet enim repudiandae. Quia fuga illum delectus, id porro ullam, molestiae exercitationem unde, voluptates nostrum velit.
+                                قوانین عضویت در وبسایت رزومو :
+ 
                             </p>
                             <p>
-                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus est voluptate cum beatae adipisci amet enim repudiandae. Quia fuga illum delectus, id porro ullam, molestiae exercitationem unde, voluptates nostrum velit.
+                               ۱ - تمامی حق انتشار و ارجاع وبسایت متعلق به رزومو میباشد                            
+                            </p>
+                            <p>
+                                ۲ - استفاده از هرگونه نام کاربری مستهجن و زشت ممنوع میباشد
+                            </p>
+                            <p>
+                                ۳ - ارسال پست های شامل موارد غیر قانونی ممنوع میباشد                            
+                            </p>
+                            <p>
+                                ۴ - از گذاشتن کامنت های شامل فحش و حرف های رکیک و ناسزا جدا خودداری کنید                           
+                            </p>
+                            <p>
+                                ۵ - در صورت رعایت نکردن هر کدام از موارد بالا اکانت شما مسدود شده و در نهایت ای پی شما مسدود خواهد شد
                             </p>
                         </div>
                     </div>
                 </div>
+            {% if error_msg %}
+            <p class="text-center" style="font-family: Lalezar">
+            {{ error_msg }}
+            </p>
+            {% else %}
             </p>
 
+    {% endif %}
     {% endblock body_block %}
 
