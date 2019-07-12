@@ -1,54 +1,17 @@
+<!DOCTYPE html>
+{% extends "weblog/base.html" %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+
   <head>
-    <meta charset="utf-8">
-    <script src="{% static 'public/jquery-3.4.1.js'%}" crossorigin="anonymous"></script>
-    <script src="{% static 'public/popper.min.js'%}" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'css/home.css'%}" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'public/bootstrap/css/bootstrap.css'%}" crossorigin="anonymous">
-    <script src="{% static 'public/bootstrap/js/bootstrap.js'%}" crossorigin="anonymous"></script>
-    <title>رزومو پلتفرم رزومه آنلاین</title>
+    <title>{% block title %}رزومو پلتفرم رزومه آنلاین{% endblock %}</title>
   </head>
-  <body>
-    <div class="container-fluid">
+  
+  
+    {% block body_block %}
 
-        
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-          
-
-            <div class="collapse navbar-collapse" id="navbarNavDropdown" style="font-family:Lalezar">
-              <ul class="navbar-nav text-right ml-auto" dir="rtl">
-                <li class="nav-item">
-                      <a class="nav-link" href="signin">ورود به سیستم</a>
-                </li>
-                <li class="nav-item">
-                      <a class="nav-link" href="register">ثبت نام</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">درباره ما</a>
-                </li>    
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    دسته بندی
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">دسته ۱</a>
-                    <a class="dropdown-item" href="#">دسته ۲</a>
-                    <a class="dropdown-item" href="#">دسته ۳</a>
-                  </div>
-                </li>          
-              </ul>
-            </div>
-            <a class="navbar-brand" href="#" style="font-family:Lalezar">رزومو پلتفرم رزومه آنلاین</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-          </nav>
-          <br>
-          <br>
-        <div class="row text-center" style="font-family: Lalezar">
+      <div class="row text-center" style="font-family: Lalezar">
           <!-- soton 1 samt chap -->
             <div class="col" id="last-users">
               <p>:اخرین کاربران سایت </p>
@@ -75,7 +38,7 @@
                   {% endif %}
               </p>
             </div>
-          </div>
-    </div>
-  </body>
-</html>
+      </div>
+
+    {% endblock body_block %}
+

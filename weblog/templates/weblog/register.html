@@ -1,75 +1,42 @@
+<!DOCTYPE html>
+{% extends "weblog/base.html" %}
 {% load static %}
-    <!DOCTYPE html>
-    <html lang="en">
+    
+    
     <head>
-        <script src="{% static 'public/jquery-3.4.1.js'%}" crossorigin="anonymous"></script>
-        <script src="{% static 'public/popper.min.js'%}" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="{% static 'css/auth.css'%}" crossorigin="anonymous">
-        <link rel="stylesheet" href="{% static 'public/bootstrap/css/bootstrap.css'%}" crossorigin="anonymous">
-        <script src="{% static 'public/bootstrap/js/bootstrap.js'%}" crossorigin="anonymous"></script>
-        <script src="{% static 'js/FarsiType.js'%}"></script>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>سامانه ورود به سیستم</title>
+        <title>{% block title %}سامانه ورود به سیستم{% endblock %}</title>
     </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        
 
-                <div class="collapse navbar-collapse" id="navbarNavDropdown" style="font-family:Lalezar">
-                    <ul class="navbar-nav text-right ml-auto" dir="rtl">
-                    <li class="nav-item">
-                            <a class="nav-link" href="{% url 'weblog:signin' %}">ورود به سیستم</a>
-                    </li>
-                    <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'weblog:register' %}">ثبت نام</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">درباره ما</a>
-                    </li>    
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        دسته بندی
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">دسته ۱</a>
-                        <a class="dropdown-item" href="#">دسته ۲</a>
-                        <a class="dropdown-item" href="#">دسته ۳</a>
+
+    {% block body_block %}
+
+            <h1 class="text-center" style="font-family: Lalezar">:  لطفا اطلاعات خود را وارد کنید</h1>
+            <hr>
+            <p>
+                <div class="container" style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
+
+                    <div class="row">
+                        <div class="col">
+                                <form method="POST">
+                                        <table>
+                                            {{signup_form.as_table}}
+                                            {% csrf_token %}
+                                        </table>
+                                    <input type="submit" class="btn btn-primary" value="ثبت نام">
+                                </form>
                         </div>
-                    </li>          
-                    </ul>
+                        <div class="col">
+                            <p>
+                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus est voluptate cum beatae adipisci amet enim repudiandae. Quia fuga illum delectus, id porro ullam, molestiae exercitationem unde, voluptates nostrum velit.
+                            </p>
+                            <p>
+                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus est voluptate cum beatae adipisci amet enim repudiandae. Quia fuga illum delectus, id porro ullam, molestiae exercitationem unde, voluptates nostrum velit.
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <a class="navbar-brand" href="{% url 'weblog:home' %}" style="font-family:Lalezar">رزومو پلتفرم رزومه آنلاین</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-        </nav>
-        <h1 class="text-center">:  لطفا اطلاعات خود را وارد کنید</h1>
-        <hr>
-        <p>
-            <div class="container">
+            </p>
 
-                <div class="row">
-                    <div class="col">
-                            <form method="POST">
-                                    <table>
-                                        {{signup_form.as_table}}
-                                        {% csrf_token %}
-                                    </table>
-                                <input type="submit" class="btn btn-primary" value="ثبت نام">
-                            </form>
-                    </div>
-                    <div class="col">
-                        <p>
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus est voluptate cum beatae adipisci amet enim repudiandae. Quia fuga illum delectus, id porro ullam, molestiae exercitationem unde, voluptates nostrum velit.
-                        </p>
-                        <p>
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus est voluptate cum beatae adipisci amet enim repudiandae. Quia fuga illum delectus, id porro ullam, molestiae exercitationem unde, voluptates nostrum velit.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </p>
-    </body>
-    </html>
+    {% endblock body_block %}
+
