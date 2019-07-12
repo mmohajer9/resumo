@@ -7,7 +7,8 @@ from .models import * #import kardan hame model haye barname
 from .forms import *
 # Create your views here.
 
-
+def base(request):
+    return render(request ,'weblog/base.html', {})
 
 def home(request):
 
