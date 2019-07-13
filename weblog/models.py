@@ -30,6 +30,7 @@ class UserDetail(models.Model):
     secondary_skill = models.ForeignKey(Skill, default = 'Dumb' ,related_name = 'user_who_have_this_as_secondary' ,on_delete=models.CASCADE)
     admin = models.BooleanField(default = 0)
     signup_date = models.DateTimeField(auto_now=True)
+    account_status = models.CharField(default = 'Active' , max_length = 250)
 
 
     def __str__(self):

@@ -1,23 +1,23 @@
-{% load static %}
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
-    <script src="{% static 'js/sweetalert2-8.13.4/package/dist/sweetalert2.all.min.js' %}"></script>    
-    <link rel="stylesheet" href="{% static 'js/sweetalert2-8.13.4/package/dist/sweetalert2.min.css'%}" crossorigin="anonymous">
+    <script src="{% static 'weblog/js/sweetalert2-8.13.4/package/dist/sweetalert2.all.min.js' %}"></script>    
+    <link rel="stylesheet" href="{% static 'weblog/js/sweetalert2-8.13.4/package/dist/sweetalert2.min.css'%}" crossorigin="anonymous">
 
     <!-- jquery and bootstrap added below!  -->
-    <script src="{% static 'public/jquery-3.4.1.js'%}" crossorigin="anonymous"></script>
-    <script src="{% static 'public/popper.min.js'%}" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{% static 'public/bootstrap/css/bootstrap.css'%}" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/base.css'%}" crossorigin="anonymous">
-    <script src="{% static 'public/bootstrap/js/bootstrap.js'%}" crossorigin="anonymous"></script>
+    <script src="{% static 'weblog/public/jquery-3.4.1.js'%}" crossorigin="anonymous"></script>
+    <script src="{% static 'weblog/public/popper.min.js'%}" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'weblog/public/bootstrap/css/bootstrap.css'%}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'weblog/css/base.css'%}" crossorigin="anonymous">
+    <script src="{% static 'weblog/public/bootstrap/js/bootstrap.js'%}" crossorigin="anonymous"></script>
     <!-- jquery and bootstrap added above!  -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}{% endblock %}</title>
-    <link rel="shortcut icon" href="{% static 'images/icon.jpg' %}" />
+    <link rel="shortcut icon" href="{% static 'weblog/images/icon.jpg' %}" />
 
 </head>
 <body>
@@ -48,7 +48,7 @@
                 </ul>
             </div>
             <a class="navbar-brand" href="{% url 'weblog:home' %}" style="font-family:Lalezar">رزومو پلتفرم رزومه آنلاین</a>
-            <a href="{% url 'weblog:home' %}"><img src="{%static 'images/icon.jpg'%}" alt="" style="height: auto; width: auto; max-height: 70px ; max-width: 70px;"></a>
+            <a href="{% url 'weblog:home' %}"><img src="{%static 'weblog/images/icon.jpg'%}" alt="" style="height: auto; width: auto; max-height: 70px ; max-width: 70px;"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
