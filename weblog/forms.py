@@ -3,6 +3,8 @@ from django.core import validators
 from .models import *
 from captcha.fields import CaptchaField 
 
+'''Training For Creating Forms from forms.Form() V1'''
+
 # class signupForm(forms.Form):
 
 #     i = 1
@@ -31,6 +33,7 @@ from captcha.fields import CaptchaField
 #     botcatcher = forms.CharField(required=False , widget = forms.HiddenInput , validators=[validators.MaxLengthValidator(0)])
 
 
+
     # def clean_botcatcher(self):
     #     print('form method of clean_botcatcher called')
     #     botcatcher = self.cleaned_data['botcatcher']
@@ -47,6 +50,11 @@ from captcha.fields import CaptchaField
     #     if email != verifyEmail:
     #         raise forms.ValidationError('Emails Are not Match Together')
     #     return verifyEmail
+
+
+
+
+'''Creating Forms from ModelForm and Submiting Data to Database V2'''
 
 class signupForm(forms.ModelForm):
     verifyEmail = forms.EmailField(label='Verify Your Email')
