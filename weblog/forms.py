@@ -49,14 +49,18 @@ from captcha.fields import CaptchaField
     #     return verifyEmail
 
 class signupForm(forms.ModelForm):
-    verifyEmail = forms.EmailField(label='Verify Your Email: ')
+    verifyEmail = forms.EmailField(label='Verify Your Email')
     botcatcher = forms.CharField(required=False , widget = forms.HiddenInput , validators=[validators.MaxLengthValidator(0)])
     captcha = CaptchaField()
     class Meta:
         model = UserDetail
         fields = ('username' , 'password' , 'firstname' , 'lastname' , 'email' , 'primary_skill' , 'secondary_skill' ,)
         widgets = {
-            'password' : forms.PasswordInput(),
+            'password' : forms.PasswordInput(attrs={'placeholder': 'Enter Password'}),
+            'username' : forms.TextInput(attrs={'placeholder': 'Enter Username'}),
+            'firstname' : forms.TextInput(attrs={'placeholder': 'e.g. Mohammad'}),
+            'lastname' : forms.TextInput(attrs={'placeholder': 'e.g. Ahmadi'}),
+            'email' : forms.EmailInput(attrs={'placeholder': 'test@test.com'}),
         }
     
     def clean_botcatcher(self):
