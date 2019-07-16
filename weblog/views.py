@@ -5,6 +5,9 @@ from django.views import generic #baraye estefade az generic view ha
 from django.utils import timezone #baraye dadan tarikh
 from .models import * #import kardan hame model haye barname
 from .forms import *
+
+from django.contrib.auth import authenticate , login , logout
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def base(request):
@@ -15,10 +18,37 @@ def home(request):
     last_users = User.objects.order_by('-signup_date')[:10]
     last_blogposts = BlogPost.objects.order_by('-pub_date')[:10]
     return render(request ,'weblog/home.html', {'last_users' : last_users , 'last_blogposts' : last_blogposts})
-    
-def login(request):
-    pass
 
+@login_required
+def signout(request):
+    logout(request)
+    return render(request ,'weblog/logoutSuccessful.html', {})
+
+
+
+def signin(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username = username , password = password)
+        
+        if user:
+            if user.is_active:
+                login(request , user)
+                return render(request ,'weblog/loginSuccessful.html', {})
+            
+            else:
+                HttpResponse('Account is Not Active ! Please Contact Us For More Info')
+
+        else:
+            print("Login Failed !")
+            print(f"Username: {username} and Password: {password}")
+            return HttpResponse("Invalid Login Details")
+
+    else:
+
+        return render(request , 'weblog/signin.html' , {})
 
 def additional_info_form_view(request , username):
 
@@ -48,7 +78,7 @@ def additional_info_form_view(request , username):
             obj.Telegram_link = additional_form.cleaned_data['Telegram_link']
             obj.Telegram_ID = additional_form.cleaned_data['Telegram_ID']
             obj.save()
-            return render(request , 'weblog/Success.html' , {'username' : username})
+            return render(request , 'weblog/registerSuccess.html' , {'username' : username})
 
         else:
             print('ADDITIONAL INFO VALIDATION FAILED')
@@ -78,8 +108,8 @@ def register_form_view(request):
             error_msg = 'Please Fix The Issues !'
     return render(request , 'weblog/register.html' , {'signup_form' : signup_form , 'error_msg' : error_msg})
 
-def signin_form(request):
-    return HttpResponseRedirect(reverse('weblog:home', args=()))
 
 def aboutus(request):
     return HttpResponseRedirect(reverse('weblog:home', args=()))
+
+

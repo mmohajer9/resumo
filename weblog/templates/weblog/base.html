@@ -21,17 +21,31 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark container-fluid position-sticky">
 
 
             <div class="collapse navbar-collapse" id="navbarNavDropdown" style="font-family:Lalezar">
                 <ul class="navbar-nav text-right ml-auto" dir="rtl">
-                <li class="nav-item">
+                {% if user.is_authenticated %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'signout' %}">خروج از سیستم</a>
+                    </li>
+
+                {% else %}
+
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'weblog:signin' %}">ورود به سیستم</a>
-                </li>
+                    </li>
+                {% endif %}
+
+                {% if user.is_authenticated %}
+
+                {% else %}
                 <li class="nav-item">
-                        <a class="nav-link" href="{% url 'weblog:register' %}">ثبت نام</a>
+                    <a class="nav-link" href="{% url 'weblog:register' %}">ثبت نام</a>
                 </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'weblog:aboutus' %}">درباره ما</a>
                 </li>    

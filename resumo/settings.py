@@ -150,5 +150,7 @@ MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
 
 
+LOGIN_URL = '/weblog/signin'
+
 
 AUTH_USER_MODEL = 'weblog.User'

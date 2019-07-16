@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% extends "weblog/base.html" %}
+{% load staticfiles %}
+    <head>
+        <title>{% block title %} ! ورود شما موفقیت آمیز بود{% endblock %}</title>
+    </head>
+
+{% block body_block %}
+
+<script>
+    
+Swal.fire({
+  position: 'center',
+  type: 'success',
+  title: 'ورود شما با موفقیت انجام شد',
+  text: '! میتونی ازامکانات سایت استفاده کنی',
+  showConfirmButton: false,
+  timer: 2000,
+
+})
+
+setTimeout(function(){ window.location.replace("{% url 'weblog:home'%}"); }, 1500);
+
+
+
+</script>
+
+{% endblock body_block %}

@@ -2,7 +2,7 @@
 {% extends "weblog/base.html" %}
 {% load staticfiles %}
     <head>
-        <title>{% block title %} ! ثبت نام موفقیت آمیز بود{% endblock %}</title>
+        <title>{% block title %} ! خروج شما موفقیت آمیز بود{% endblock %}</title>
     </head>
 
 {% block body_block %}
@@ -12,10 +12,10 @@
 Swal.fire({
   position: 'center',
   type: 'success',
-  title: 'ثبت نام با موفقیت انجام شد',
-  text: '! میتونی از بخش ورود وارد سایت بشی',
+  title: 'خروج شما با موفقیت انجام شد',
+  text: '! بخدانگهدار',
   showConfirmButton: false,
-  timer: 3000,
+  timer: 2000,
 
 })
 
