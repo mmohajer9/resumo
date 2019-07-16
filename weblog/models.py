@@ -168,8 +168,9 @@ class BlogPostLike(models.Model):
     #id = pk
     likes = models.BooleanField(default = 0)
     blogPost_id = models.ForeignKey(BlogPost , on_delete=models.CASCADE)
-    username = models.OneToOneField(User,on_delete=models.CASCADE)
-
+    username = models.ForeignKey(User,on_delete=models.CASCADE)
+    class Meta:
+        unique_together = ('blogPost_id', 'username',)
     def __str__(self):
         return str(self.username) + ' Likes --> ' + str(self.blogPost_id)
 
@@ -181,8 +182,9 @@ class CommentLike(models.Model):
     #id = pk
     likes = models.BooleanField(default = 0)
     comment_id = models.ForeignKey(Comment, on_delete=models.CASCADE)
-    username = models.OneToOneField(User,on_delete=models.CASCADE)
-
+    username = models.ForeignKey(User,on_delete=models.CASCADE)
+    class Meta:
+        unique_together = ('comment_id', 'username',)
     def __str__(self):
         return str(self.username) + ' Likes --> ' + str(self.comment_id)
     def __unicode__(self):
