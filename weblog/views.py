@@ -10,8 +10,8 @@ from django.contrib.auth import authenticate , login , logout
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
-def base(request):
-    return render(request ,'weblog/base.html', {})
+# def base(request):
+#     return render(request ,'weblog/base.html', {})
 
 def home(request):
 
@@ -27,6 +27,11 @@ def signout(request):
 
 
 def signin(request):
+
+    if request.user.is_authenticated:
+        print(request.user)
+        return HttpResponseRedirect(reverse('weblog:home', args=()))
+
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -65,19 +70,21 @@ def additional_info_form_view(request , username):
     additional_form = additional_info_Form()
     error_msg = ''
     request.session['form-submitted'] = False
+    
     if request.method == 'POST':
         additional_form = additional_info_Form(request.POST)
         if additional_form.is_valid():
             print('ADDITIONAL INFO VALIDATION SUCCESS!')
             print(additional_form.cleaned_data)
-            obj = User.objects.get(pk = username)
-            obj.github_link = additional_form.cleaned_data['github_link']
-            obj.facebook_link = additional_form.cleaned_data['facebook_link']
-            obj.Linkedin_link = additional_form.cleaned_data['Linkedin_link']
-            obj.Instagram_link = additional_form.cleaned_data['Instagram_link']
-            obj.Telegram_link = additional_form.cleaned_data['Telegram_link']
-            obj.Telegram_ID = additional_form.cleaned_data['Telegram_ID']
-            obj.save()
+            user = User.objects.get(pk = username)
+            profile = additional_form.save(commit = False) # Object az noe model UserDetial Bar migardone !
+            profile.user = user
+
+            if 'profile_pic' in request.FILES:
+                profile.profile_pic = request.FILES['profile_pic']
+            
+            profile.save()
+
             return render(request , 'weblog/registerSuccess.html' , {'username' : username})
 
         else:
@@ -91,6 +98,11 @@ def additional_info_form_view(request , username):
 def register_form_view(request):
     signup_form = signupForm()
     error_msg = ''
+
+    if request.user.is_authenticated:
+        print(request)
+        return HttpResponseRedirect(reverse('weblog:home', args=()))
+
     if request.method == 'POST':
         # print(request.POST)
         signup_form = signupForm(request.POST)

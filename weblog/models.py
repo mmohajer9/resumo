@@ -123,11 +123,11 @@ class UserDetail(models.Model):
     aboutme = models.TextField(default = 'No Informations!')
     primary_skill = models.ForeignKey(Skill, default = 'Nothing' ,related_name ='user_who_have_this_as_primary' ,on_delete=models.CASCADE)
     secondary_skill = models.ForeignKey(Skill, default = 'Nothing' ,related_name = 'user_who_have_this_as_secondary' ,on_delete=models.CASCADE)
-
+    profile_pic = models.ImageField(upload_to = 'weblog/profile_pics' , blank=True)
 
 
     def __str__(self):
-        return self.user
+        return str(self.user) + ' / ' + str(self.primary_skill) + ' / ' + str(self.secondary_skill)
 
     def __unicode__(self):
         return
