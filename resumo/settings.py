@@ -148,3 +148,7 @@ STAITCFILES_DIRS = [
 # MEDIA
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+
+
+
+AUTH_USER_MODEL = 'weblog.User'

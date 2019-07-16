@@ -57,12 +57,13 @@ from captcha.fields import CaptchaField
 '''Creating Forms from ModelForm and Submiting Data to Database V2'''
 
 class signupForm(forms.ModelForm):
+    
     verifyEmail = forms.EmailField(label='Verify Your Email')
     botcatcher = forms.CharField(required=False , widget = forms.HiddenInput , validators=[validators.MaxLengthValidator(0)])
     captcha = CaptchaField()
     class Meta:
-        model = UserDetail
-        fields = ('username' , 'password' , 'firstname' , 'lastname' , 'email' , 'primary_skill' , 'secondary_skill' ,)
+        model = User
+        fields = ('username' , 'password' , 'firstname' , 'lastname' , 'email' ,)
         widgets = {
             'password' : forms.PasswordInput(attrs={'placeholder': 'Enter Password'}),
             'username' : forms.TextInput(attrs={'placeholder': 'Enter Username'}),
@@ -88,6 +89,18 @@ class signupForm(forms.ModelForm):
             raise forms.ValidationError('Emails Are not Match Together')
         return verifyEmail
 
+
+
+        #save bayad override bshe! chon hash nadare save ghabli
+        
+    def save(self, commit = True):
+        user = super().save(commit = False) # Call the real save() method
+        user.set_password(self.cleaned_data['password'])
+        if(commit):
+            user.save()
+        return user
+
+
 class additional_info_Form(forms.ModelForm):
     github_link = forms.URLField(required=False)
     facebook_link = forms.URLField(required=False)
@@ -97,5 +110,5 @@ class additional_info_Form(forms.ModelForm):
     Telegram_ID = forms.CharField(required=False)
     class Meta:
         model = UserDetail
-        fields = ('github_link' , 'facebook_link' , 'Linkedin_link' , 'Instagram_link' , 'Instagram_link' , 'Telegram_link' , 'aboutme' ,)
+        fields = ('primary_skill' , 'secondary_skill' , 'github_link' , 'facebook_link' , 'Linkedin_link' , 'Instagram_link' , 'Instagram_link' , 'Telegram_link' , 'aboutme' ,)
         

@@ -12,7 +12,7 @@ def base(request):
 
 def home(request):
 
-    last_users = UserDetail.objects.order_by('-signup_date')[:10]
+    last_users = User.objects.order_by('-signup_date')[:10]
     last_blogposts = BlogPost.objects.order_by('-pub_date')[:10]
     return render(request ,'weblog/home.html', {'last_users' : last_users , 'last_blogposts' : last_blogposts})
     
@@ -40,7 +40,7 @@ def additional_info_form_view(request , username):
         if additional_form.is_valid():
             print('ADDITIONAL INFO VALIDATION SUCCESS!')
             print(additional_form.cleaned_data)
-            obj = UserDetail.objects.get(pk = username)
+            obj = User.objects.get(pk = username)
             obj.github_link = additional_form.cleaned_data['github_link']
             obj.facebook_link = additional_form.cleaned_data['facebook_link']
             obj.Linkedin_link = additional_form.cleaned_data['Linkedin_link']
