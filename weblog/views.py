@@ -63,16 +63,22 @@ def additional_info_form_view(request , username):
 
     #in karbord session dar haqiqat yek anti refreshe
     #mese safeye pardakht online ke nabayad refresh koni!
+    
+
+
 
     if request.method == 'GET':
-        if not request.session.get('form-submitted' , True):
+        #if not request.session.get('form-submitted' , True): #TYPE 1
+        if not 'form-submitted' in request.session: #TYPE 2
             raise Http404("Bad Access Don't Refresh The Page or Try To Reach This Without Registering !") 
+        del request.session['form-submitted']
+
     additional_form = additional_info_Form()
     error_msg = ''
-    request.session['form-submitted'] = False
+        
     
     if request.method == 'POST':
-        additional_form = additional_info_Form(request.POST)
+        additional_form = additional_info_Form(data = request.POST , files = request.FILES)
         if additional_form.is_valid():
             print('ADDITIONAL INFO VALIDATION SUCCESS!')
             print(additional_form.cleaned_data)
@@ -100,7 +106,7 @@ def register_form_view(request):
     error_msg = ''
 
     if request.user.is_authenticated:
-        print(request)
+        print(request.session)
         return HttpResponseRedirect(reverse('weblog:home', args=()))
 
     if request.method == 'POST':
