@@ -11,7 +11,11 @@ urlpatterns = [
     path('aboutus/',views.aboutus , name = 'aboutus'),
     path('signout/' , views.signout , name = 'signout'),
     path('profile/<str:username>/' , views.user_profile , name = 'user_profile'),
-    path('profile/' , views.profile , name = 'profile')
-    # path('base/' , views.base , name = 'base'),
-
+    path('profile/' , views.profile , name = 'profile'),
+    path('base/' , views.base , name = 'base'),
+    # path('profile/<str:username>/newpost' , views.newpost , name = 'newpost'),
+    # path('profile/<str:username>/wall' , views.wall , name = 'wall'),
+    # path('profile/<str:username>/edit_profile' , views.edit_profile , name = 'edit_profile'),
+    # path('profile/<str:username>/edit_user' , views.edit_user , name = 'edit_user'),
+    # -- I Should Think ! -- #
 ]   
