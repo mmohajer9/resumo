@@ -107,9 +107,9 @@ class additional_info_Form(forms.ModelForm):
     Linkedin_link = forms.URLField(required=False)
     Instagram_link = forms.URLField(required=False)
     Telegram_link = forms.URLField(required=False)
-    Telegram_ID = forms.CharField(required=False)
+    personal_website = forms.URLField(required=False)
     profile_pic = forms.ImageField(required = False)
     class Meta:
         model = UserDetail
-        fields = ('primary_skill' , 'secondary_skill' , 'github_link' , 'facebook_link' , 'Linkedin_link' , 'Instagram_link' , 'Instagram_link' , 'Telegram_link' , 'aboutme' , 'profile_pic')
+        fields = ('primary_skill' , 'secondary_skill' , 'github_link' , 'facebook_link' , 'Linkedin_link' , 'Instagram_link' , 'Instagram_link' , 'Telegram_link' , 'personal_website' , 'aboutme' , 'profile_pic')
         

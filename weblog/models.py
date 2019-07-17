@@ -119,11 +119,13 @@ class UserDetail(models.Model):
     Linkedin_link = models.URLField(blank=True, null=True , max_length=200)
     Instagram_link = models.URLField(blank=True, null=True , max_length=200)
     Telegram_link = models.URLField(blank=True, null=True , max_length=200)
-    Telegram_ID = models.CharField(blank=True, null=True , max_length=200)
+    personal_website = models.URLField(blank=True, null=True , max_length=200)
     aboutme = models.TextField(default = 'No Informations!')
     primary_skill = models.ForeignKey(Skill, default = 'Nothing' ,related_name ='user_who_have_this_as_primary' ,on_delete=models.CASCADE)
     secondary_skill = models.ForeignKey(Skill, default = 'Nothing' ,related_name = 'user_who_have_this_as_secondary' ,on_delete=models.CASCADE)
-    profile_pic = models.ImageField(upload_to = 'weblog/profile_pics' , blank=True)
+    profile_pic = models.ImageField(upload_to = 'weblog/'+ str(user) +'/profile_pics' , blank=True)
+    is_private = models.BooleanField(default = False)
+    rank = models.CharField(blank=True, null=True , max_length=200)
 
 
     def __str__(self):

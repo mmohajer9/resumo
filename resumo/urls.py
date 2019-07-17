@@ -21,5 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('' , include('weblog.urls')),
     path('captcha/', include('captcha.urls')),
-    path('signout/' , views.signout , name = 'signout')
+    
 ]

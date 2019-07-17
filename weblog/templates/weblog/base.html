@@ -18,6 +18,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}{% endblock %}</title>
     <link rel="shortcut icon" href="{% static 'weblog/images/icon.jpg' %}" />
+    
 
 </head>
 <body>
@@ -26,10 +27,51 @@
 
             <div class="collapse navbar-collapse" id="navbarNavDropdown" style="font-family:Lalezar">
                 <ul class="navbar-nav text-right ml-auto" dir="rtl">
+
+                
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'weblog:profile' %}">پروفایل</a>
+                    </li>
+                {% else %}
+                {% endif %}
+
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">پست جدید</a>
+                    </li>
+                {% else %}
+                {% endif %}
+
+
+                {% if user.is_authenticated %}
+
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'weblog:register' %}">ثبت نام</a>
+                </li>
+                {% endif %}
+
+                {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        تنظیمات ناحیه کاربری
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">تغییر مشخصات</a>
+                        <a class="dropdown-item" href="#">تنظیمات امنیتی</a>
+                        <a class="dropdown-item" href="#">ارتباط با مدیریت</a>
+                        </div>
+                    </li>  
+                {% else %}
+                {% endif %}
+
+
+
                 {% if user.is_authenticated %}
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'signout' %}">خروج از سیستم</a>
+                        <a class="nav-link" href="{% url 'weblog:signout' %}">خروج از سیستم</a>
                     </li>
 
                 {% else %}
@@ -39,26 +81,13 @@
                     </li>
                 {% endif %}
 
-                {% if user.is_authenticated %}
 
-                {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'weblog:register' %}">ثبت نام</a>
-                </li>
-                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'weblog:aboutus' %}">درباره ما</a>
                 </li>    
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    دسته بندی
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">دسته ۱</a>
-                    <a class="dropdown-item" href="#">دسته ۲</a>
-                    <a class="dropdown-item" href="#">دسته ۳</a>
-                    </div>
-                </li>         
+
+
+
                 </ul>
             </div>
             <a class="navbar-brand" href="{% url 'weblog:home' %}" style="font-family:Lalezar">رزومو پلتفرم رزومه آنلاین</a>

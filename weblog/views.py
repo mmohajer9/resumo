@@ -13,6 +13,25 @@ from django.contrib.auth.decorators import login_required
 # def base(request):
 #     return render(request ,'weblog/base.html', {})
 
+
+def edit_profile(request):
+    return HttpResponseRedirect(reverse('weblog:profile'))
+
+def user_profile(request , username):
+    user_obj = User.objects.get_by_natural_key(username)
+    
+    if user_obj.userdetail.is_private:
+        return Http404('This Page Is Private')
+    else:
+        return render(request ,'weblog/profile.html', {}) 
+
+
+def profile(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('weblog:user_profile' , args=(request.user,)))
+    else:
+        return HttpResponseRedirect(reverse('weblog:signin' , args=()))
+
 def home(request):
 
     last_users = User.objects.order_by('-signup_date')[:10]
