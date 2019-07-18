@@ -71,12 +71,16 @@ def signin(request):
                 return render(request ,'weblog/loginSuccessful.html', {})
             
             else:
-                HttpResponse('Account is Not Active ! Please Contact Us For More Info')
+                error_msg = 'حساب شما مسدود است برای اطلاعات بیشتر با مدیریت تماس بگیرید'
+                return render(request ,'weblog/error.html', {'error_msg' : error_msg})
 
         else:
             print("Login Failed !")
             print(f"Username: {username} and Password: {password}")
-            return HttpResponse("Invalid Login Details")
+
+            error_msg = 'نام کاربری یا رمز عبور شما اشتباه است'
+
+            return render(request ,'weblog/error.html', {'error_msg' : error_msg})
 
     else:
 

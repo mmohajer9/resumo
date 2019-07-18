@@ -21,14 +21,17 @@
                         <p>{{user}}</p>
                       {% endfor %}
                     {% else %}
-                    <p>Ops! No User Found!</p>
+                    <p>هیچ کاربری یافت نشد !</p>
                     {% endif %}
               </p>
             </div>
 
             <div class="col" id="last-online">
-              <p>: (کاربران آنلاین (در ۳۰ ثانیه اخیر</p>
+              <p>: ( کاربران آنلاین (در ۳۰ ثانیه اخیر</p>
               <p>
+
+
+              {% if online_users %}
                 {% for user in online_users %}
                 
                 <p>
@@ -36,6 +39,13 @@
                 </p>
                 
                 {% endfor %}
+              {% else %}
+                <p>
+                !  کاربر آنلاینی یافت نشد 
+                </p>
+              {% endif %}
+
+
               </p>
             </div>
 
@@ -49,7 +59,7 @@
                       <a href="#">{{blogpost}}</p>
                     {% endfor %}
                   {% else %}
-                     <a>Ops! No User Found!</p>
+                     <p> ! هیچ پستی یافت نشد</p>
                   {% endif %}
               </p>
             </div>

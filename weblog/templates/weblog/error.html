@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% extends "weblog/base.html" %}
+{% load staticfiles %}
+    <head>
+        <title>{% block title %} ! ورود شما موفقیت آمیز بود{% endblock %}</title>
+    </head>
+
+{% block body_block %}
+
+<script>
+    
+Swal.fire({
+  position: 'center',
+  type: 'error',
+  title: 'خطا',
+  text: '{{ error_msg }}',
+  showConfirmButton: false,
+  timer: 2000,
+
+})
+
+setTimeout(function(){ window.location.replace("{% url 'weblog:signin'%}"); }, 2000);
+
+
+
+</script>
+
+{% endblock body_block %}
