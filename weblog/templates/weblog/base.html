@@ -22,7 +22,7 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark container-fluid position-sticky">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark container-fluid position-relative">
 
 
             <div class="collapse navbar-collapse" id="navbarNavDropdown" style="font-family:Lalezar">
@@ -54,13 +54,13 @@
 
                 {% if user.is_authenticated %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         تنظیمات ناحیه کاربری
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">تغییر مشخصات</a>
-                        <a class="dropdown-item" href="#">تنظیمات امنیتی</a>
-                        <a class="dropdown-item" href="#">ارتباط با مدیریت</a>
+                            <a class="dropdown-item" href="#">تغییر مشخصات</a>
+                            <a class="dropdown-item" href="#">تنظیمات امنیتی</a>
+                            <a class="dropdown-item" href="#">ارسال تیکت</a>
                         </div>
                     </li>  
                 {% else %}

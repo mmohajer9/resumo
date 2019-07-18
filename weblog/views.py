@@ -6,6 +6,8 @@ from django.utils import timezone #baraye dadan tarikh
 from .models import * #import kardan hame model haye barname
 from .forms import *
 
+from django.core.exceptions import ObjectDoesNotExist
+
 from django.contrib.auth import authenticate , login , logout
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -18,12 +20,14 @@ def edit_profile(request):
     return HttpResponseRedirect(reverse('weblog:profile'))
 
 def user_profile(request , username):
+
     user_obj = User.objects.get_by_natural_key(username)
-    
+
+
     if user_obj.userdetail.is_private:
         return Http404('This Page Is Private')
     else:
-        return render(request ,'weblog/profile.html', {}) 
+        return render(request ,'weblog/user_profile.html', {}) 
 
 
 def profile(request):
