@@ -2,7 +2,8 @@
 {% extends "weblog/base.html" %}
 {% load staticfiles %}
     <head>
-        <title>{% block title %}پروفایل شما{% endblock %}</title>
+        <title>
+        {% block title %}پروفایل کاربر{% endblock %}</title>
     </head>
 
 {% block body_block %}
@@ -120,16 +121,6 @@
                         <div class="profile-img">
                         {% if user_obj.userdetail.profile_pic %}
                             <img style="border-radius: 5%;" src="/media/{{user_obj.userdetail.profile_pic}}" alt=""/>
-
-                            {% if user.is_authenticated and username_in_url == user.username %}
-                                <div class="file btn btn-lg btn-primary">
-                                    Change Photo
-                                <input type="file" name="file"/>
-                            </div>
-                            {% else %}    
-                            {% endif %}
-
-
                         {% endif %}
 
                         </div>
@@ -155,7 +146,7 @@
                     </div>
                     <div class="col-md-2">
                         {% if user.is_authenticated and username_in_url == user.username %}
-                            <a class="profile-edit-btn" href="#">Edit Profile</a>
+                            <a class="profile-edit-btn" href="{% url 'weblog:edit_profile' user %}">Edit Profile</a>
                         {% else %}    
                         {% endif %}
                     </div>

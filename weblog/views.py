@@ -18,8 +18,8 @@ from django.contrib.auth.decorators import login_required
 #     return render(request ,'weblog/base.html', {})
 
 
-def edit_profile(request):
-    return HttpResponseRedirect(reverse('weblog:profile'))
+def edit_profile(request , username):
+    return render(request ,'weblog/edit_profile.html' , {'username' : username}) 
 
 def user_profile(request , username):
 
