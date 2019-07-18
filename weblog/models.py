@@ -129,7 +129,7 @@ class UserDetail(models.Model):
 
 
     def __str__(self):
-        return str(self.user) + ' / ' + str(self.primary_skill) + ' / ' + str(self.secondary_skill)
+        return str(self.user) + ' / Primary : ' + str(self.primary_skill) + ' / Secondary : ' + str(self.secondary_skill)
 
     def __unicode__(self):
         return
