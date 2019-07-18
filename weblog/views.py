@@ -8,6 +8,8 @@ from .forms import *
 
 from django.core.exceptions import ObjectDoesNotExist
 
+from online_users.models import OnlineUserActivity , timedelta
+
 from django.contrib.auth import authenticate , login , logout
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -38,9 +40,11 @@ def profile(request):
 
 def home(request):
 
+    online_users = OnlineUserActivity.get_user_activities(timedelta(seconds=30))
+
     last_users = User.objects.order_by('-signup_date')[:10]
     last_blogposts = BlogPost.objects.order_by('-pub_date')[:10]
-    return render(request ,'weblog/home.html', {'last_users' : last_users , 'last_blogposts' : last_blogposts})
+    return render(request ,'weblog/home.html', {'last_users' : last_users , 'last_blogposts' : last_blogposts , 'online_users' : online_users})
 
 @login_required
 def signout(request):

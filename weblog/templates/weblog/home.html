@@ -27,9 +27,15 @@
             </div>
 
             <div class="col" id="last-online">
-              <p>:اخرین کاربران آنلاین </p>
+              <p>: (کاربران آنلاین (در ۳۰ ثانیه اخیر</p>
               <p>
-
+                {% for user in online_users %}
+                
+                <p>
+                  {{ user.user }}
+                </p>
+                
+                {% endfor %}
               </p>
             </div>
 
