@@ -29,7 +29,8 @@ def user_profile(request , username):
     if user_obj.userdetail.is_private:
         return Http404('This Page Is Private')
     else:
-        return render(request ,'weblog/user_profile.html', {}) 
+
+        return render(request ,'weblog/user_profile.html', {'user_obj' : user_obj , 'username_in_url' : username}) 
 
 
 def profile(request):

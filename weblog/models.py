@@ -64,7 +64,7 @@ class User(AbstractBaseUser):
         return self.username
 
     def get_full_name(self):
-        return self.firstname + '  -  ' + self.lastname   
+        return self.firstname + '    ' + self.lastname   
 
     def get_short_name(self):
         return self.firstname
@@ -120,12 +120,15 @@ class UserDetail(models.Model):
     Instagram_link = models.URLField(blank=True, null=True , max_length=200)
     Telegram_link = models.URLField(blank=True, null=True , max_length=200)
     personal_website = models.URLField(blank=True, null=True , max_length=200)
-    aboutme = models.TextField(default = 'No Informations!')
+    aboutme = models.CharField(blank=True, null=True , max_length=50)
+    bio = models.TextField(blank=True, null=True)
     primary_skill = models.ForeignKey(Skill, default = 'Nothing' ,related_name ='user_who_have_this_as_primary' ,on_delete=models.CASCADE)
     secondary_skill = models.ForeignKey(Skill, default = 'Nothing' ,related_name = 'user_who_have_this_as_secondary' ,on_delete=models.CASCADE)
-    profile_pic = models.ImageField(upload_to = 'weblog/'+ str(user) +'/profile_pics' , blank=True)
+    profile_pic = models.ImageField(upload_to = 'weblog/profile_pics' , blank=True)
     is_private = models.BooleanField(default = False)
     rank = models.CharField(blank=True, null=True , max_length=200)
+    phone = models.CharField(blank=True, null=True,max_length=15)
+    profession = models.CharField(blank=True, null=True , max_length=50)
 
 
     def __str__(self):
