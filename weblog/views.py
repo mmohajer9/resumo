@@ -19,6 +19,55 @@ from django.contrib.auth.decorators import login_required
 
 
 def edit_profile(request , username):
+
+    if request.user.username != username:
+        
+        raise Http404(f'Page Not Found ! You Can Not Access This Page without Login as "{username}" ')
+    
+    if request.method == 'POST':
+
+        user_obj = User.objects.get_by_natural_key(username)
+        profile = UserDetail.objects.get(user = user_obj)
+
+        post = request.POST.copy()
+        if post.get('is_private') == 'on':
+            post['is_private'] =  1
+        else:
+            post['is_private'] =  0
+
+
+        for i in post:
+            if post[i] == 'None':
+                post[i] = ''
+        
+
+        request.POST = post
+
+        # for i in request.POST:
+        #     print(i + '  ---  ',request.POST[i])
+
+        
+        if 'profile_pic' in request.FILES:
+            profile.profile_pic = request.FILES['profile_pic']   
+
+        profile.aboutme = request.POST['aboutme']
+        profile.github_link = request.POST['github_link']
+        profile.facebook_link = request.POST['facebook_link']
+        profile.Linkedin_link = request.POST['Linkedin_link']
+        profile.Instagram_link = request.POST['Instagram_link']
+        profile.Telegram_link = request.POST['Telegram_link']
+        profile.personal_website = request.POST['personal_website']
+        profile.phone = request.POST['phone']
+        profile.profession = request.POST['profession']
+        profile.bio = request.POST['bio']
+        profile.is_private = request.POST['is_private']
+
+        if request.POST.get('clearphoto') == 'on':
+            profile.profile_pic.delete(save = True)
+
+        profile.save()
+        return HttpResponseRedirect(reverse('weblog:profile'))
+        
     return render(request ,'weblog/edit_profile.html' , {'username' : username}) 
 
 def user_profile(request , username):
@@ -26,8 +75,8 @@ def user_profile(request , username):
     user_obj = User.objects.get_by_natural_key(username)
 
 
-    if user_obj.userdetail.is_private:
-        return Http404('This Page Is Private')
+    if user_obj.userdetail.is_private and str(user_obj.username) != str(request.user.username):
+        raise Http404('This Page Is Private')
     else:
 
         return render(request ,'weblog/user_profile.html', {'user_obj' : user_obj , 'username_in_url' : username}) 
@@ -121,6 +170,8 @@ def additional_info_form_view(request , username):
             if 'profile_pic' in request.FILES:
                 profile.profile_pic = request.FILES['profile_pic']
             
+
+
             profile.save()
 
             return render(request , 'weblog/registerSuccess.html' , {'username' : username})

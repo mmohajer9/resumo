@@ -2,10 +2,303 @@
 {% extends "weblog/base.html" %}
 {% load staticfiles %}
     <head>
-        <title>{% block title %} تغییر مشخصات پروفایل{% endblock %}</title>
+        <title>
+        {% block title %}تغییر مشخصات پروفایل{% endblock %}</title>
     </head>
 
 {% block body_block %}
 
+<style>
+    body{
+        background: -webkit-linear-gradient(right, #1f1f20, #19191a);
+    }
+    .emp-profile{
+        padding: 3%;
+        margin-top: 3%;
+        margin-bottom: 3%;
+        border-radius: 0.5rem;
+        background: #fff;
+    }
+    .profile-img{
+        text-align: center;
+    }
+    .profile-img img{
+        width: 70%;
+        height: 100%;
+    }
+    .profile-img .file {
+        position: relative;
+        overflow: hidden;
+        margin-top: -25%;
+        width: 70%;
+        border: none;
+        border-radius: 0;
+        font-size: 15px;
+        background: #212529b8;
+    }
+
+    .file:hover
+    {
+        background: #007bf6b8;
+        font-size: 17px;
+    }
+
+    .profile-img .file input {
+        position: absolute;
+        opacity: 0;
+        right: 0;
+        top: 0;
+    }
+    .profile-head h5{
+        color: #333;
+    }
+    .profile-head h6{
+        color: #0062cc;
+    }
+    .profile-edit-btn{
+        border: none;
+        border-radius: 1.5rem;
+        width: 70%;
+        padding: 2%;
+        font-weight: 600;
+        color: #6c757d;
+        cursor: pointer;
+    }
+    .proile-rating{
+        font-size: 12px;
+        color: #818182;
+        margin-top: 5%;
+    }
+    .proile-rating span{
+        color: #495057;
+        font-size: 15px;
+        font-weight: 600;
+    }
+    .profile-head .nav-tabs{
+        margin-bottom:5%;
+    }
+    .profile-head .nav-tabs .nav-link{
+        font-weight:600;
+        border: none;
+    }
+    .profile-head .nav-tabs .nav-link.active{
+        border: none;
+        border-bottom:2px solid #0062cc;
+    }
+    .profile-work{
+        padding: 14%;
+        margin-top: -15%;
+    }
+    .profile-work p{
+        font-size: 12px;
+        color: #818182;
+        font-weight: 600;
+        margin-top: 10%;
+    }
+    .profile-work a{
+        text-decoration: none;
+        color: #495057;
+        font-weight: 600;
+        font-size: 14px;
+    }
+    .profile-work ul{
+        list-style: none;
+    }
+    .profile-tab label{
+        font-weight: 600;
+    }
+    .profile-tab p{
+        font-weight: 600;
+        color: #0062cc;
+    }
+</style>
+
+
+<div class="container emp-profile text-right">
+
+
+            <form enctype="multipart/form-data" method="POST" id="edit_profile_form">
+
+                {% csrf_token %}
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                        {% if user.userdetail.profile_pic %}
+                            <img style="border-radius: 5%;" src="/media/{{user.userdetail.profile_pic}}" alt="NO PHOTO"/>
+                        {% endif %}
+                        <div class="file btn btn-lg btn-primary">
+                                Change Photo
+                                <input type="file" name="profile_pic" accept="image/*" />
+                        </div>
+
+                        <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="switch2" name="clearphoto">
+                                <label class="custom-control-label" for="switch2">Clear Photo ? </label>
+                        </div> 
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="profile-head">
+                                    <h5>
+                                        {{user.get_full_name}}
+                                    </h5>
+                                    <h6>
+                                       <input class="swal2-input" name="aboutme" type="text" value="{{user.userdetail.aboutme}}">
+                                    </h6>
+                                    <p class="proile-rating">RANK : <span>{{user.userdetail.rank}}</span></p>
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Timeline</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="profile-edit-btn btn btn-success text-white">Done</button>
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-work">
+                            <p>Other Pages</p>
+                            
+                            
+                            <p> GitHub : <input class="" name="github_link" type="text" value="{{user.userdetail.github_link}}"> </p>
+                            <p> Facebook : <input class="" name="facebook_link" type="text" value="{{user.userdetail.facebook_link}}"> </p>
+                            <p> LinkedIn : <input class="" name="Linkedin_link" type="text" value="{{user.userdetail.Linkedin_link}}"> </p>
+                            <p> Instagram : <input class="" name="Instagram_link" type="text" value="{{user.userdetail.Instagram_link}}"> </p>
+                            <p> Telegram : <input class="" name="Telegram_link" type="text" value="{{user.userdetail.Telegram_link}}"> </p>
+                            <p> Website : <input class="" name="personal_website" type="text" value="{{user.userdetail.personal_website}}"> </p>
+                            
+      
+                            <p>SKILLS</p>
+                            <!-- Add Skills Later -->
+                            {% if user.userdetail.primary_skill == user.userdetail.secondary_skill %}
+                                <a href="">{{user.userdetail.primary_skill}}</a><br/>
+                            {% else %}
+                                <a href="">{{user.userdetail.primary_skill}}</a><br/>
+                                <a href="">{{user.userdetail.secondary_skill}}</a><br/>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Username</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{user.username}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Full Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{user.get_full_name}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Email</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{user.email}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Phone</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><input class="" name="phone" type="text" value="{{user.userdetail.phone}}"></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Profession</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                    
+                                                <p><input class="" name="profession" type="text" value="{{user.userdetail.profession}}"></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Private</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="custom-control custom-switch">
+                                                            <input type="checkbox" class="custom-control-input" id="switch1" name="is_private">
+                                                            <label class="custom-control-label" for="switch1"></label>
+                                                    </div>       
+                                                </div>
+
+
+
+                                        </div>
+                            </div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Experience</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>No Info</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Hourly Rate</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>No Info</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Total Projects</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>No Info</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>English Level</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Expert</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Availability</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>6 months</p>
+                                            </div>
+                                        </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>Your Bio</label><br/>
+                                        <p><textarea rows="4" cols="50" name="bio" form="edit_profile_form">{{user.userdetail.bio}}</textarea></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>           
+        </div>
 
 {% endblock body_block %}
