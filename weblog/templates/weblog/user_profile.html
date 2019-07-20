@@ -3,7 +3,7 @@
 {% load staticfiles %}
     <head>
         <title>
-        {% block title %}پروفایل کاربر{% endblock %}</title>
+        {% block title %}{{username_in_url}}پروفایل کاربر{% endblock %}</title>
     </head>
 
 {% block body_block %}
@@ -248,6 +248,14 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <p>{{user_obj.userdetail.profession}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Wall</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p class="font-weight-bolder"><a href="{% url 'weblog:wall' username_in_url%}">Click To See The Wall</a></p>
                                             </div>
                                         </div>
                             </div>

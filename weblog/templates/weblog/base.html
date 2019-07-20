@@ -20,6 +20,9 @@
     <link rel="shortcut icon" href="{% static 'weblog/images/icon.jpg' %}" />
     
 
+    {% block mycss %} {% endblock mycss %}
+
+
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark container-fluid position-relative">
@@ -38,7 +41,7 @@
 
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">پست جدید</a>
+                        <a class="nav-link" href="{% url 'weblog:newpost' user %}">پست جدید</a>
                     </li>
                 {% else %}
                 {% endif %}
@@ -50,6 +53,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'weblog:register' %}">ثبت نام</a>
                 </li>
+                {% endif %}
+
+
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'weblog:wall' user %}">دیوار شما</a>
+                    </li>
+                {% else %}
+
                 {% endif %}
 
                 {% if user.is_authenticated %}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% extends "weblog/base.html" %}
+{% load staticfiles %}
+    <head>
+        <title>{% block title %} پست جدید {% endblock %}</title>
+    </head>
+
+{% block body_block %}
+
+    <h1>
+        {% if not form.instance.pk %}
+        
+        Create Post
+        {% else %}
+        Update Post
+        {% endif %}
+    </h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input name="" id="" class="btn btn-primary" type="submit" value="Submit">
+
+    </form>
+
+{% endblock body_block %}

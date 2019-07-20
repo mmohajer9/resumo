@@ -18,7 +18,9 @@
               <p>
                     {% if last_users %}
                       {% for user in last_users %}
-                        <p>{{user}}</p>
+                        <p>
+                          <a href="{% url 'weblog:user_profile' user %}">{{user}}</a>
+                        </p>
                       {% endfor %}
                     {% else %}
                     <p>هیچ کاربری یافت نشد !</p>
@@ -32,10 +34,10 @@
 
 
               {% if online_users %}
-                {% for user in online_users %}
+                {% for user_obj in online_users %}
                 
                 <p>
-                  {{ user.user }}
+                  <a href="{% url 'weblog:user_profile' user_obj.user %}">{{user_obj.user}}</a>
                 </p>
                 
                 {% endfor %}

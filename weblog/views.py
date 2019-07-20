@@ -1,7 +1,8 @@
 from django.http import HttpResponseRedirect , HttpResponse , HttpRequest , Http404
 from django.shortcuts import get_object_or_404, render 
 from django.urls import reverse #reverse function :: reverse('appname:url_name' , args=( , , ) == vorodi haye url)
-from django.views import generic #baraye estefade az generic view ha
+from django.views.generic import (View , TemplateView , ListView , DetailView, 
+                                         CreateView , UpdateView , DeleteView )
 from django.utils import timezone #baraye dadan tarikh
 from .models import * #import kardan hame model haye barname
 from .forms import *
@@ -12,10 +13,61 @@ from online_users.models import OnlineUserActivity , timedelta
 
 from django.contrib.auth import authenticate , login , logout
 from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 # def base(request):
 #     return render(request ,'weblog/base.html', {})
+
+
+class UserWallView(ListView):
+    model = BlogPost
+    # it will return a list context with the context name : blogpost_list so it is the default
+    # now u can over ride this feature with context_object_name and changing it to what u desire
+    context_object_name = 'blogposts'
+    #bayad tavajoh krd ke dar har soorat context object_list besorat default ba hamin esm hamishe hast 
+    #va mitoni azash estefade koni age esmi nazashti ya nakahasti az blogpost_list default estefade koni
+    
+
+
+    # template name is also has an default value called 'blogpost_list.html' and u can over ride this too!
+    template_name='weblog/user_wall.html'
+    
+
+    # queryset is telling us that what context should send to template via context_object_name
+    def get_queryset(self):
+        print('from get_queryset  ---' ,self.kwargs) #chizayi ke besorat <str:username> dadi mire to kwargs besorat dictionary {'username' : value }
+        return BlogPost.objects.filter(username = self.kwargs['username']).order_by('-pub_date')
+
+
+    #mitoni etelaat khodeto be contexte mored nazar ezafe koni !
+    def get_context_data(self, **kwargs):
+        context = super(UserWallView, self).get_context_data(**kwargs)
+        context['username_in_url'] = self.kwargs['username']
+        for key in context:
+            print(key , context[key])
+        return context
+
+class PostDetailView(DetailView):
+    model = BlogPost
+    template_name='weblog/post.html'
+    
+    # toye in chon marbot be faghat ye object az BlogPost hast va detail haye ono neshon mide pas pk = id ro az url migire
+    # va motabegh id ke daryaft krde mire post marbot be on id ro barmigardone toye 2ta context mirize ke mitoni esmashono avaz koni
+    # besorat default toye : object , blogpost
+    # bar khalaf list ha ke toshon object_list , blogpost_list dare!
+
+
+    def get_context_data(self, **kwargs):
+        context = super(PostDetailView, self).get_context_data(**kwargs)
+        for key in context:
+            print(key , context[key])        
+        return context
+
+class BlogPostCreateView(CreateView):
+    fields = ('title' , 'body')
+    model = BlogPost
+    template_name = "weblog/newpost.html"
 
 
 def edit_profile(request , username):

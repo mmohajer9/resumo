@@ -146,6 +146,7 @@ class BlogPost(models.Model):
     body = models.TextField(null = False)
     username = models.ForeignKey(User,on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now=True, auto_now_add=False)
+    post_pic = models.ImageField(upload_to='weblog/post_pics', max_length=None , blank=True, null=True)
     def __str__(self):
         return 'USER : ' + str(self.username) + ' / ' + str(self.pk) + ' - Title :  "' + self.title + '" / Likes : ' + str(self.blogpostlike_set.count())
     def __unicode__(self):
