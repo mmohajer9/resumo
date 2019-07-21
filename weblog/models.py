@@ -2,6 +2,8 @@ from django.db import models
 
 from django.contrib.auth.models import AbstractBaseUser , BaseUserManager
 
+
+from django.shortcuts import render , reverse
 class UserManager(BaseUserManager):
     
     def create_user(self , username , email , password = None , is_active = True , is_staff = False , is_admin = False):
@@ -142,7 +144,7 @@ class UserDetail(models.Model):
 class BlogPost(models.Model):
 
     #id = pk
-    title = models.CharField(max_length = 100 , null = False)
+    title = models.CharField(max_length = 100 , null = False , unique = True)
     body = models.TextField(null = False)
     username = models.ForeignKey(User,on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now=True, auto_now_add=False)
@@ -152,6 +154,10 @@ class BlogPost(models.Model):
     def __unicode__(self):
         return
 
+
+    def get_absolute_url(self):
+        return reverse("weblog:post", kwargs={"pk": self.pk , 'username' : self.username})
+    
 
 class Comment(models.Model):
 

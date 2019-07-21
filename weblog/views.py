@@ -36,7 +36,7 @@ class UserWallView(ListView):
 
     # queryset is telling us that what context should send to template via context_object_name
     def get_queryset(self):
-        print('from get_queryset  ---' ,self.kwargs) #chizayi ke besorat <str:username> dadi mire to kwargs besorat dictionary {'username' : value }
+        # print('from get_queryset  ---' ,self.kwargs) #chizayi ke besorat <str:username> dadi mire to kwargs besorat dictionary {'username' : value }
         return BlogPost.objects.filter(username = self.kwargs['username']).order_by('-pub_date')
 
 
@@ -45,8 +45,8 @@ class UserWallView(ListView):
     def get_context_data(self, **kwargs):
         context = super(UserWallView, self).get_context_data(**kwargs)
         context['username_in_url'] = self.kwargs['username']
-        for key in context:
-            print(key , context[key])
+        # for key in context:
+        #     print(key , context[key])
         return context
 
 class PostDetailView(DetailView):
@@ -61,8 +61,8 @@ class PostDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self).get_context_data(**kwargs)
-        for key in context:
-            print(key , context[key])        
+        # for key in context:
+        #     print(key , context[key])        
         return context
 
 class PostLikeListView(ListView):
@@ -80,15 +80,40 @@ class PostLikeListView(ListView):
         context['username_in_url'] = self.kwargs['username']
         context['post_title'] = BlogPost.objects.filter(id = self.kwargs['pk']).values_list('title' , flat = True)[0]
         context['post_id'] = self.kwargs['pk']
-        for key in context:
-            print(key , context[key])
+        # for key in context:
+        #     print(key , context[key])
         return context
 
 
-class BlogPostCreateView(CreateView):
-    fields = ('title' , 'body')
+class PostCreateView(CreateView):
+    fields = ('title' , 'body' , 'post_pic')
     model = BlogPost
     template_name = "weblog/newpost.html"
+
+    #chizi ke ina be onvan context montaqel mikonan contexti bename form hast ke toye template azash estefade krdm
+
+    def form_valid(self, form):
+        
+        
+        if self.request.user.is_authenticated and self.request.user.username == self.kwargs['username']:
+            user_obj = get_object_or_404(User , username = self.kwargs['username'])
+            form.instance.username = user_obj
+            print(form.instance) #an instance of BlogPost! before saving to database and setting a pk (id)
+            return super().form_valid(form)
+        else:
+            raise Http404('Bad Access !')
+
+    def get(self , request , *args, **kwargs):
+        if self.request.user.is_authenticated and self.request.user.username == self.kwargs['username']:
+            return super().get(request)
+        else:
+            raise Http404('Bad Access !')
+
+
+
+
+
+
 
 
 def edit_profile(request , username):
