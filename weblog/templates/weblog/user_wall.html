@@ -36,13 +36,17 @@
           <div class="card-footer text-muted">
             Post On {{post.pub_date}}
             <a href="{% url 'weblog:user_profile' post.username %}">{{post.username}}</a>
+            <hr>
+            <p><a href="{% url 'weblog:postlike' post.username post.id %}"><img style="height: 50px; width: 50px;" src="/media/weblog/like-flat.png" alt=""> {{post.blogpostlike_set.count}}</a></p>
+
           </div>
+          
         </div>            
         
         {% endfor %}
 
 
-        <!-- Pagination -->
+        {% comment %} <!-- Pagination -->
         <ul class="pagination justify-content-center mb-4">
           <li class="page-item">
             <a class="page-link" href="#">&larr; Older</a>
@@ -50,7 +54,7 @@
           <li class="page-item disabled">
             <a class="page-link" href="#">Newer &rarr;</a>
           </li>
-        </ul>
+        </ul> {% endcomment %}
 
       </div>
 

@@ -40,6 +40,7 @@ class UserWallView(ListView):
         return BlogPost.objects.filter(username = self.kwargs['username']).order_by('-pub_date')
 
 
+
     #mitoni etelaat khodeto be contexte mored nazar ezafe koni !
     def get_context_data(self, **kwargs):
         context = super(UserWallView, self).get_context_data(**kwargs)
@@ -56,13 +57,33 @@ class PostDetailView(DetailView):
     # va motabegh id ke daryaft krde mire post marbot be on id ro barmigardone toye 2ta context mirize ke mitoni esmashono avaz koni
     # besorat default toye : object , blogpost
     # bar khalaf list ha ke toshon object_list , blogpost_list dare!
-
+    
 
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self).get_context_data(**kwargs)
         for key in context:
             print(key , context[key])        
         return context
+
+class PostLikeListView(ListView):
+    model = BlogPostLike
+    context_object_name = 'likes'
+    template_name='weblog/postlike.html'
+
+
+    def get_queryset(self):
+        return BlogPostLike.objects.filter(blogPost_id = self.kwargs['pk'])
+    
+
+    def get_context_data(self, **kwargs):
+        context = super(PostLikeListView, self).get_context_data(**kwargs)
+        context['username_in_url'] = self.kwargs['username']
+        context['post_title'] = BlogPost.objects.filter(id = self.kwargs['pk']).values_list('title' , flat = True)[0]
+        context['post_id'] = self.kwargs['pk']
+        for key in context:
+            print(key , context[key])
+        return context
+
 
 class BlogPostCreateView(CreateView):
     fields = ('title' , 'body')

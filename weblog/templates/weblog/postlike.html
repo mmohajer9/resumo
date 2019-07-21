@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% extends "weblog/base.html" %}
+{% load staticfiles %}
+    <head>
+        <title>{% block title %} لایک های پست {{post_title}} {% endblock %}</title>
+    </head>
+
+{% block body_block %}
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <h3 class="my-4">Likes For <a href="{% url 'weblog:post' username_in_url post_id %}">{{post_title}}</a>:</h3>
+
+    <table class="table">
+        <thead>
+            
+                <tr>
+                    <th>User</th>
+                    <th>Post Title</th>
+                    <th>By</th>
+                    <th>Date</th>
+
+                </tr>
+                {% for like in likes %}
+                    <tr>
+                        <th><a href="{% url 'weblog:user_profile' like.username %}">{{like.username}}</a></th>
+                        <th><a href="{% url 'weblog:post' username_in_url like.blogPost_id.id %}">{{like.blogPost_id.title}}</a></th>
+                        <th><a href="{% url 'weblog:user_profile' like.blogPost_id.username %}">{{like.blogPost_id.username}}</a></th>
+                        <th><a>{{like.blogPost_id.pub_date}}</a></th>
+
+                    
+                    </tr>
+                {% endfor %}
+                
+                
+            
+        </thead>
+        <tbody>
+            <tr>
+                <td scope="row"></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td scope="row"></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p></p>  
+    <!-- /.row -->
+
+  </div>
+
+{% endblock body_block %}

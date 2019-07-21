@@ -15,6 +15,7 @@ urlpatterns = [
     path('profile/<str:username>/edit_profile' , views.edit_profile , name = 'edit_profile'),
     path('profile/<str:username>/wall' , views.UserWallView.as_view() , name = 'wall'),
     path('profile/<str:username>/post/<int:pk>' , views.PostDetailView.as_view() , name = 'post'),
+    path('profile/<str:username>/post/<int:pk>/likes' , views.PostLikeListView.as_view() , name = 'postlike'),
     path('profile/<str:username>/newpost' , views.BlogPostCreateView.as_view() , name = 'newpost'),
     # path('profile/<str:username>/edit_user' , views.edit_user , name = 'edit_user'), <-- ziad mohem nis age nazadish
     # -- I Should Think ! -- #

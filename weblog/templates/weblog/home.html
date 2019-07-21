@@ -58,7 +58,7 @@
               <p>
                   {% if last_blogposts %}
                     {% for blogpost in last_blogposts %}
-                      <a href="#">{{blogpost}}</p>
+                      <a href="{% url 'weblog:post' blogpost.username blogpost.id %}">{{blogpost}}</p>
                     {% endfor %}
                   {% else %}
                      <p> ! هیچ پستی یافت نشد</p>
