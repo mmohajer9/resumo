@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% extends "weblog/base.html" %}
+{% load staticfiles %}
+    <head>
+        <title>{% block title %} تایید حذف لایک{% endblock %}</title>
+    </head>
+
+{% block body_block %}
+
+
+<div class="container">
+    
+    <form action="" method="post">
+        
+        {% csrf_token %}
+
+        <div class="jumbotron">
+            <h1 class="display-3">Are You Sure?</h1>
+            <p class="lead">To Delete Your Like ?</p>
+            <hr class="my-2">
+            <p>More info</p>
+            <p class="lead">
+                <button type="submit" class="btn btn-danger btn-lg">Delete</button>
+                <a class="btn btn-warning btn-lg" href="{% url 'weblog:post' username_in_url object.blogPost_id.id %}" role="button">Cancel</a>
+            </p>
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock body_block %}

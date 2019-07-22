@@ -121,6 +121,22 @@ class PostCreateView(CreateView):
             raise Http404('Bad Access !')
 
 
+class LikeOrDislikeDeleteView(DeleteView):
+    model = BlogPostLike
+    template_name = "weblog/deleteLikeOrDislike_confirm.html"
+
+    #hatman bayad toye delete view hedayat beshim be ye safhe ke confirm konim delete bshe ya na mese hamini ke zadim
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["username_in_url"] = self.kwargs['username'] 
+        return context
+    
+
+    def get_success_url(self):
+        return reverse('weblog:post', args=(self.kwargs['username'] , self.kwargs['post_id']))
+
+
 
 
 def likeThePost(request , username , post_id):

@@ -49,7 +49,7 @@
         {% endif %}     
 
         <hr>
-
+  
         <!-- Post Content -->
         <p>{{blogpost.body}}</p>
         <!-- Like Post -->
@@ -60,11 +60,11 @@
 
             {% if auth_user_like.likes == 1 %}
             
-              <a name="" id="" class="btn btn-dark" href="{% url 'weblog:likeThePost' blogpost.username blogpost.id %}" role="button">Delete Your Like</a>
+              <a name="" id="" class="btn btn-dark" href="{% url 'weblog:deleteLikeOrDislike' blogpost.username blogpost.id auth_user_like.id %}" role="button">Delete Your Like</a>
               
             {% else %}
 
-              <a name="" id="" class="btn btn-dark" href="{% url 'weblog:likeThePost' blogpost.username blogpost.id %}" role="button">Delete Your Dislike</a>
+              <a name="" id="" class="btn btn-dark" href="{% url 'weblog:deleteLikeOrDislike' blogpost.username blogpost.id auth_user_like.id %}" role="button">Delete Your Dislike</a>
 
             {% endif %}
           
