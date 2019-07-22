@@ -20,6 +20,8 @@ urlpatterns = [
     path('profile/<str:username>/post/<int:post_id>/likeThePost' , views.likeThePost , name = 'likeThePost'),
     path('profile/<str:username>/post/<int:post_id>/dislikeThePost' , views.dislikeThePost , name = 'dislikeThePost'),
     path('profile/<str:username>/post/<int:post_id>/deleteLikeOrDislike/<int:pk>' , views.LikeOrDislikeDeleteView.as_view() , name = 'deleteLikeOrDislike'),
+    path('profile/<str:username>/post/<int:post_id>/deleteComment/<int:pk>' , views.deleteCommentDeleteView.as_view() , name = 'deleteComment'),
+
     # path('profile/<str:username>/edit_user' , views.edit_user , name = 'edit_user'), <-- ziad mohem nis age nazadish
     # -- I Should Think ! -- #
 ]   

@@ -86,31 +86,41 @@
         <hr>
 
         <!-- Comments Form -->
+        {% if user.is_authenticated %}
         <div class="card my-4">
           <h5 class="card-header">Leave a Comment:</h5>
           <div class="card-body">
-            <form>
+            <form method="POST">
+              {% csrf_token %}
               <div class="form-group">
-                <textarea class="form-control" rows="3"></textarea>
+                <textarea name="comment_text" class="form-control" rows="3"></textarea>
               </div>
               <button type="submit" class="btn btn-primary">Submit</button>
             </form>
           </div>
         </div>
+        {% endif %}
+
 
         <!-- Single Comment -->
         {% for comment in blogpost.comment_set.all %}
-        <div class="media mb-4">
-        {% if comment.username.userdetail.profile_pic %}
-          <a href="{% url 'weblog:user_profile' comment.username %}"><img class="d-flex mr-3 rounded-circle" style="height : 50px; width=50px;" src="/media/{{comment.username.userdetail.profile_pic}}" alt=""></a>
-        {% else %}
-          <a href="{% url 'weblog:user_profile' comment.username %}"><img class="d-flex mr-3 rounded-circle" style="height : 50px; width=50px;" src="/media/weblog/profile_pics/profile_sample_picture_default.png" alt=""></a>
-        {% endif %}  
-          <div class="media-body">
-            <a href="{% url 'weblog:user_profile' comment.username %}"><h5 class="mt-0">{{comment.username}}</h5></a>
-              {{comment.comment_text}}
+          <div class="media mb-4">
+          {% if comment.username.userdetail.profile_pic %}
+            <a href="{% url 'weblog:user_profile' comment.username %}"><img class="d-flex mr-3 rounded-circle" style="height : 50px; width : 50px; " src="/media/{{comment.username.userdetail.profile_pic}}" alt=""></a>
+          {% else %}
+            <a href="{% url 'weblog:user_profile' comment.username %}"><img class="d-flex mr-3 rounded-circle" style="height : 50px; width : 50px; " src="/media/weblog/profile_pics/profile_sample_picture_default.png" alt=""></a>
+          {% endif %}  
+            <div class="media-body">
+              <a href="{% url 'weblog:user_profile' comment.username %}"><h5 class="mt-0">{{comment.username}}</h5></a>
+                {{comment.comment_text}}
+            </div>
+            <div class="media-body">
+            </div>
+            <div class="media-body">
+              <a name="" id="" class="btn btn-danger" href="{% url 'weblog:deleteComment' blogpost.username blogpost.id comment.id %}" role="button">Delete Comment</a>
+            </div>            
           </div>
-        </div>
+          <hr>
         {% endfor %}
 
 

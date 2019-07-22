@@ -69,6 +69,20 @@ class PostDetailView(DetailView):
             print(key , context[key])        
         return context
 
+    def post(self , request , *args, **kwargs):
+        if self.request.user.is_authenticated:
+            try:    
+                bp = BlogPost.objects.get(pk = self.kwargs['pk'])
+                cm = bp.comment_set.get_or_create(username = request.user , comment_text = request.POST['comment_text'])
+                return HttpResponseRedirect(reverse('weblog:post' , args=(self.kwargs['username'] , self.kwargs['pk'])))
+            except:
+                return HttpResponseRedirect(reverse('weblog:post' , args=(self.kwargs['username'] , self.kwargs['pk'])))
+
+            
+        else:
+            raise Http404('Bad Access ! Please Log In')    
+    
+
     # in function baraye gereftan object e ke toe context hast besorat default pk ro az url bar midare va on object ro bar migardone
     # ye halat ham copy az on doros mikone mirize to blogpost
     # def get_object(self, queryset=None):
@@ -92,7 +106,6 @@ class PostLikeListView(ListView):
         # for key in context:
         #     print(key , context[key])
         return context
-
 
 
 
@@ -121,6 +134,7 @@ class PostCreateView(CreateView):
             raise Http404('Bad Access !')
 
 
+
 class LikeOrDislikeDeleteView(DeleteView):
     model = BlogPostLike
     template_name = "weblog/deleteLikeOrDislike_confirm.html"
@@ -137,7 +151,18 @@ class LikeOrDislikeDeleteView(DeleteView):
         return reverse('weblog:post', args=(self.kwargs['username'] , self.kwargs['post_id']))
 
 
+class deleteCommentDeleteView(DeleteView):
+    model = Comment
+    template_name = "weblog/delete_comment_confirm.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["username_in_url"] = self.kwargs['username'] 
+        return context
+    
+
+    def get_success_url(self):
+        return reverse('weblog:post', args=(self.kwargs['username'] , self.kwargs['post_id']))
 
 def likeThePost(request , username , post_id):
     if not request.user.is_authenticated:
