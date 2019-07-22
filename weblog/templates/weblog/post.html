@@ -8,6 +8,10 @@
 
     </head>
 
+{% load humanize %}
+
+{% load CustomFilters %}
+
 {% block body_block %}
 
   <!-- Page Content -->
@@ -30,8 +34,10 @@
         <hr>
 
         <!-- Date/Time -->
-        <p>Posted on {{blogpost.pub_date}}</p>
-        <p><a href="{% url 'weblog:postlike' blogpost.username blogpost.id %}"><img style="height: 50px; width: 50px;" src="/media/weblog/like-flat.png" alt=""> Likes : {{blogpost.blogpostlike_set.count}}</a></p>
+        <p>Posted on {{blogpost.pub_date}} / {{blogpost.pub_date|naturaltime}}</p>
+        <p><a href="{% url 'weblog:postlikes' blogpost.username blogpost.id %}"><img style="height: 50px; width: 50px;" src="/media/weblog/like-flat.png" alt=""> Likes : {{blogpost.blogpostlike_set|truelikesCount}}</a>
+           <a href="{% url 'weblog:postlikes' blogpost.username blogpost.id %}"><img style="height: 50px; width: 50px;" src="/media/weblog/dislike-icon.png" alt="">Dislikes : {{blogpost.blogpostlike_set|truedislikesCount}}</a>
+        </p>
 
         <hr>
 
@@ -46,6 +52,36 @@
 
         <!-- Post Content -->
         <p>{{blogpost.body}}</p>
+        <!-- Like Post -->
+        {% if user.is_authenticated %}
+
+
+          {% if auth_user_like %}
+
+            {% if auth_user_like.likes == 1 %}
+            
+              <a name="" id="" class="btn btn-dark" href="{% url 'weblog:likeThePost' blogpost.username blogpost.id %}" role="button">Delete Your Like</a>
+              
+            {% else %}
+
+              <a name="" id="" class="btn btn-dark" href="{% url 'weblog:likeThePost' blogpost.username blogpost.id %}" role="button">Delete Your Dislike</a>
+
+            {% endif %}
+          
+          {% else %}
+
+              <a name="" id="" class="btn btn-primary" href="{% url 'weblog:likeThePost' blogpost.username blogpost.id %}" role="button">Like This Post</a>
+              <a name="" id="" class="btn btn-danger" href="{% url 'weblog:dislikeThePost' blogpost.username blogpost.id %}" role="button">Dislike This Post</a>
+
+
+          {% endif %}
+
+
+        
+
+        
+        <!-- user.is_authenticated -->
+        {% endif %}
 
         <hr>
 
@@ -63,13 +99,19 @@
         </div>
 
         <!-- Single Comment -->
+        {% for comment in blogpost.comment_set.all %}
         <div class="media mb-4">
-          <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+        {% if comment.username.userdetail.profile_pic %}
+          <a href="{% url 'weblog:user_profile' comment.username %}"><img class="d-flex mr-3 rounded-circle" style="height : 50px; width=50px;" src="/media/{{comment.username.userdetail.profile_pic}}" alt=""></a>
+        {% else %}
+          <a href="{% url 'weblog:user_profile' comment.username %}"><img class="d-flex mr-3 rounded-circle" style="height : 50px; width=50px;" src="/media/weblog/profile_pics/profile_sample_picture_default.png" alt=""></a>
+        {% endif %}  
           <div class="media-body">
-            <h5 class="mt-0">Commenter Name</h5>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+            <a href="{% url 'weblog:user_profile' comment.username %}"><h5 class="mt-0">{{comment.username}}</h5></a>
+              {{comment.comment_text}}
           </div>
         </div>
+        {% endfor %}
 
 
       </div>

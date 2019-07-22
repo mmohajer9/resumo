@@ -5,6 +5,10 @@
         <title>{% block title %}دیوار کاربر {{username_in_url}}{% endblock %}</title>
     </head>
 
+{% load CustomFilters %}
+
+{% load humanize %}
+
 {% block body_block %}
 
   <!-- Page Content -->
@@ -29,15 +33,16 @@
           
           <div class="card-body">
             <h2 class="card-title">{{post.title}}</h2>
-            <p class="card-text">{{post.body}}</p>
+            <!-- <p class="card-text">{{post.body}}</p>  in matne post ro to wall neshon midad -->
             <a href="{% url 'weblog:post' post.username post.id %}" class="btn btn-primary">Read The Post &rarr;</a>
             <!-- bayad read the post ro be detail view post vasl konam ! -->
           </div>
           <div class="card-footer text-muted">
-            Post On {{post.pub_date}}
+            Posted On {{post.pub_date}} / {{post.pub_date|naturaltime}}
             <a href="{% url 'weblog:user_profile' post.username %}">{{post.username}}</a>
             <hr>
-            <p><a href="{% url 'weblog:postlike' post.username post.id %}"><img style="height: 50px; width: 50px;" src="/media/weblog/like-flat.png" alt=""> {{post.blogpostlike_set.count}}</a></p>
+            <p><a href="{% url 'weblog:postlikes' post.username post.id %}"><img style="height: 50px; width: 50px;" src="/media/weblog/like-flat.png" alt=""> {{post.blogpostlike_set|truelikesCount}}</a>
+            <a href="{% url 'weblog:postlikes' post.username post.id %}"><img style="height: 50px; width: 50px;" src="/media/weblog/dislike-icon.png" alt=""> {{post.blogpostlike_set|truedislikesCount}}</a></p>
 
           </div>
           

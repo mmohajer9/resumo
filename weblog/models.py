@@ -150,7 +150,7 @@ class BlogPost(models.Model):
     pub_date = models.DateTimeField(auto_now=True, auto_now_add=False)
     post_pic = models.ImageField(upload_to='weblog/post_pics', max_length=None , blank=True, null=True)
     def __str__(self):
-        return 'USER : ' + str(self.username) + ' / ' + str(self.pk) + ' - Title :  "' + self.title + '" / Likes : ' + str(self.blogpostlike_set.count())
+        return 'USER : ' + str(self.username) + ' / ' + str(self.pk) + ' - Title :  "' + self.title + '" / Likes : ' + str(self.blogpostlike_set.filter(likes = 1).count())
     def __unicode__(self):
         return
 
@@ -168,7 +168,7 @@ class Comment(models.Model):
     pub_date = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     def __str__(self):
-        return self.comment_text
+        return str(self.username) + ' Left a Comment on The Post : < ' + str(self.blogPost_id.title) + ' > By : ' + str(self.blogPost_id.username)
 
     def __unicode__(self):
         return
@@ -184,7 +184,10 @@ class BlogPostLike(models.Model):
     class Meta:
         unique_together = ('blogPost_id', 'username',)
     def __str__(self):
-        return str(self.username) + ' Likes --> ' + str(self.blogPost_id)
+        if self.likes == 1:
+            return str(self.username) + ' Likes --> ' + str(self.blogPost_id)
+        else:
+            return str(self.username) + ' Dislikes --> ' + str(self.blogPost_id)
 
     def __unicode__(self):
         return

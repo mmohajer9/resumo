@@ -61,9 +61,18 @@ class PostDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self).get_context_data(**kwargs)
-        # for key in context:
-        #     print(key , context[key])        
+        if self.request.user.is_authenticated:
+            if BlogPostLike.objects.filter(blogPost_id = context['object']).filter(username = self.request.user).exists():
+                auth_user_like = BlogPostLike.objects.filter(blogPost_id = context['object']).get(username = self.request.user)
+                context['auth_user_like'] = auth_user_like
+        for key in context:
+            print(key , context[key])        
         return context
+
+    # in function baraye gereftan object e ke toe context hast besorat default pk ro az url bar midare va on object ro bar migardone
+    # ye halat ham copy az on doros mikone mirize to blogpost
+    # def get_object(self, queryset=None):
+    #     return super().get_object(queryset=queryset)
 
 class PostLikeListView(ListView):
     model = BlogPostLike
@@ -83,6 +92,8 @@ class PostLikeListView(ListView):
         # for key in context:
         #     print(key , context[key])
         return context
+
+
 
 
 class PostCreateView(CreateView):
@@ -112,7 +123,31 @@ class PostCreateView(CreateView):
 
 
 
+def likeThePost(request , username , post_id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('weblog:signin' , args=()))
+    else:
+        try:    
+            bp = BlogPost.objects.get(pk = post_id)
+            bp.blogpostlike_set.get_or_create(username = request.user , likes = 1)
+            return HttpResponseRedirect(reverse('weblog:post' , args=(username , post_id)))
+        except:
+            return HttpResponseRedirect(reverse('weblog:post' , args=(username , post_id)))
+    
+        
+        
 
+
+def dislikeThePost(request , username , post_id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('weblog:signin' , args=()))
+    else:
+        try:    
+            bp = BlogPost.objects.get(pk = post_id)
+            bp.blogpostlike_set.get_or_create(username = request.user , likes = 0)
+            return HttpResponseRedirect(reverse('weblog:post' , args=(username , post_id)))
+        except:
+            return HttpResponseRedirect(reverse('weblog:post' , args=(username , post_id)))
 
 
 
