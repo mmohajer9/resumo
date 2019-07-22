@@ -11,6 +11,48 @@
   
     {% block body_block %}
 
+    {% if not user.is_authenticated %}
+    <!-- Card -->
+    <div class="container container mt-4 mb-5">
+        <h3 class="display-4 text-center" style="font-family: Lalezar;"> پلتفرم رزومه انلاین </h3>
+        <hr class="bg-dark mb-4 w-25">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <img class="card-img-top" src="{% static 'weblog/images/registerpic.jpg' %}" alt="Card image cap">
+                    <div class="card-block p-3">
+                        <h4 class="card-title" style="font-family: Lalezar;">همین آلان ثبت نام کن</h4>
+                        <p class="card-text" style="font-family: Lalezar;">سریع ثبت نام کن تا بتونی از امکانات سایت استفاده کنی</p>
+                        <a href="#" style="font-family: Lalezar;" class="btn btn-primary rounded-0 mb-2">ثبت نام</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img class="card-img-top"  src="{% static 'weblog/images/loginpic.jpg' %}" alt="Card image cap">
+                    <div class="card-block p-3">
+                        <h4 class="card-title" style="font-family: Lalezar;">ثبت نام کردی ؟ </h4>
+                        <p class="card-text" style="font-family: Lalezar;">اگر عضو وبسایت ما هستی میتونی وارد بشی !</p>
+                        <a href="#" style="font-family: Lalezar;" class="btn btn-primary rounded-0 mb-2">ورود</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img class="card-img-top" style="width = 591px;" src="{% static 'weblog/images/about-us-logo.png' %}" alt="Card image cap">
+                    <div class="card-block p-3">
+                        <h4 class="card-title" style="font-family: Lalezar;">درباره ما</h4>
+                        <p class="card-text" style="font-family: Lalezar;">درباره ما و سایتمون</p>
+                        <a href="#" style="font-family: Lalezar;" class="btn btn-primary rounded-0 mb-2">درباره ما</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Card -->
+    {% endif %}
+
+
       <div class="row text-center" style="font-family: Lalezar">
           <!-- soton 1 samt chap -->
             <div class="col" id="last-users">

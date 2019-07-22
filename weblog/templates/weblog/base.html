@@ -7,11 +7,9 @@
     <link rel="stylesheet" href="{% static 'weblog/js/sweetalert2-8.13.4/package/dist/sweetalert2.min.css'%}" crossorigin="anonymous">
 
     <!-- jquery and bootstrap added below!  -->
-    <script src="{% static 'weblog/public/jquery-3.4.1.js'%}" crossorigin="anonymous"></script>
-    <script src="{% static 'weblog/public/popper.min.js'%}" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'weblog/public/bootstrap/css/bootstrap.css'%}" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'weblog/css/base.css'%}" crossorigin="anonymous">
-    <script src="{% static 'weblog/public/bootstrap/js/bootstrap.js'%}" crossorigin="anonymous"></script>
+
     <!-- jquery and bootstrap added above!  -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +19,7 @@
     
 
     {% block mycss %} {% endblock mycss %}
-
+    
 
 </head>
 <body>
@@ -116,7 +114,11 @@
         {% block body_block %}
         <!-- CONTENT -->
         {% endblock  %}
-        
+        {% block js %}
+            <script src="{% static 'weblog/public/bootstrap/js/bootstrap.js'%}" crossorigin="anonymous"></script>
+            <script src="{% static 'weblog/public/jquery-3.4.1.js'%}" crossorigin="anonymous"></script>
+            <script src="{% static 'weblog/public/popper.min.js'%}" crossorigin="anonymous"></script>        
+        {% endblock js %}
     </div>
 </body>
 </html>

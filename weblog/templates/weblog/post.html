@@ -51,7 +51,7 @@
         <hr>
   
         <!-- Post Content -->
-        <p>{{blogpost.body}}</p>
+        <p>{{blogpost.get_message_as_markdown}}</p>
         <!-- Like Post -->
         {% if user.is_authenticated %}
 

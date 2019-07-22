@@ -4,6 +4,10 @@ from django.contrib.auth.models import AbstractBaseUser , BaseUserManager
 
 
 from django.shortcuts import render , reverse
+
+
+from django.utils.html import mark_safe
+from markdown import markdown
 class UserManager(BaseUserManager):
     
     def create_user(self , username , email , password = None , is_active = True , is_staff = False , is_admin = False):
@@ -149,6 +153,8 @@ class BlogPost(models.Model):
     username = models.ForeignKey(User,on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now=True, auto_now_add=False)
     post_pic = models.ImageField(upload_to='weblog/post_pics', max_length=None , blank=True, null=True)
+
+
     def __str__(self):
         return 'USER : ' + str(self.username) + ' / ' + str(self.pk) + ' - Title :  "' + self.title + '" / Likes : ' + str(self.blogpostlike_set.filter(likes = 1).count())
     def __unicode__(self):
@@ -158,6 +164,9 @@ class BlogPost(models.Model):
     def get_absolute_url(self):
         return reverse("weblog:post", kwargs={"pk": self.pk , 'username' : self.username})
     
+    def get_message_as_markdown(self):
+        return mark_safe(markdown(self.body, safe_mode='escape'))
+
 
 class Comment(models.Model):
 
