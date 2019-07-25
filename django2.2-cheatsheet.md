@@ -16,6 +16,7 @@ Here is the cheat sheet to fast developing a project in django 2.2
     pip install bcrypt
     pip install django[argon2]
     pip install humanize
+    pip install django-widget-tweaks
     
 
 Now it will create some folders like :
