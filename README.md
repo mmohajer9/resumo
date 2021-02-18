@@ -20,11 +20,19 @@ pip install virtualenv
 virtualenv -p python3 venv
 ```
 Activating Vitrual Envrionment
-`source venv/bin/activate`
+```
+source venv/bin/activate
+```
 Installing Packages
-`pip install -r requirements.txt`
+```
+pip install -r requirements.txt
+```
 Migrating the database
-`python manage.py migrate`
+```
+python manage.py migrate
+```
 Run The Test Server
-`python manage.py runserver`
+```
+python manage.py runserver
+```
 
