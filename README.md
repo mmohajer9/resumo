@@ -15,8 +15,10 @@ Resumo an Online Resume and Portfolio Platform with Django 2.2 and Postgresql Da
 ## Getting Started
 
 Making Virtual Environment
-`pip install virtualenv`
-`virtualenv -p python3 venv`
+```
+pip install virtualenv
+virtualenv -p python3 venv
+```
 Activating Vitrual Envrionment
 `source venv/bin/activate`
 Installing Packages
