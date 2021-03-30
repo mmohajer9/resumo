@@ -120,7 +120,7 @@ pycparser==2.19
 pycrypto==2.6.1
 pycups==1.9.73
 PyDispatcher==2.0.5
-Pygments==2.4.2
+Pygments==2.7.4
 pygobject==3.26.1
 PyHamcrest==1.9.0
 pyinotify==0.9.6
