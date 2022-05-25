@@ -124,7 +124,7 @@ Pygments==2.4.2
 pygobject==3.26.1
 PyHamcrest==1.9.0
 pyinotify==0.9.6
-PyJWT==1.7.1
+PyJWT==2.4.0
 pylint==2.3.1
 pymacaroons==0.13.0
 PyMySQL==0.9.3
