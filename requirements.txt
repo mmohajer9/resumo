@@ -146,7 +146,7 @@ reportlab==3.4.0
 requests==2.18.4
 requests-oauthlib==1.2.0
 requests-unixsocket==0.1.5
-Scrapy==1.6.0
+Scrapy==2.6.2
 SecretStorage==2.3.1
 Send2Trash==1.5.0
 service-identity==18.1.0
