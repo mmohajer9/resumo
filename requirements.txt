@@ -165,7 +165,7 @@ text-unidecode==1.2
 tornado==6.0.2
 torndb-for-python3==0.2.3
 traitlets==4.3.2
-Twisted==18.9.0
+Twisted==22.10.0
 typed-ast==1.4.0
 ubuntu-drivers-common==0.0.0
 ufw==0.36
